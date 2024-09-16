@@ -1,5 +1,5 @@
 [build]
-  command = "export PATH=$PATH:./frontend/node_modules/.bin && npm run build --prefix frontend"
+  command = "npm run build --prefix frontend"
   publish = "frontend/dist"
 
 
