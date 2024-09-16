@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import items from "./data.jsx";
-import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "react-icons/fa";
+import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "/react-icons/fa";
 import { useSelector } from "react-redux";
 
 import "./tableau.scss";
