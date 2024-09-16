@@ -15,6 +15,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    base: "/BMB",
+    base: "/big-money-business",
   },
 });
