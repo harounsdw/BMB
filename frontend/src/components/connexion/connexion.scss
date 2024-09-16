@@ -1,0 +1,83 @@
+.container {
+  overflow-y: hidden;
+  h2 {
+    float: right;
+  }
+  .logo {
+    float: left;
+    width: 100px;
+    height: auto;
+  }
+  form {
+    background-attachment: fixed;
+    background-position: 5%;
+    padding: 5%;
+  }
+
+  .connexion {
+    display: block;
+    margin: 50px auto 5%;
+    width: 40%;
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 123, 255, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:focus {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+        0 8px 25px rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  .btn {
+    margin: auto;
+    padding: 1% 0;
+    width: 40%;
+    font-size: 17px;
+    color: aqua;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(249, 245, 249, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+        0 8px 25px rgba(0, 123, 255, 0.5);
+    }
+  }
+}
+
+.animated-heading {
+  font-size: 3em;
+  text-align: center;
+  color: #007bff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: fadeInUp 2s ease-in-out;
+
+  &::before {
+    content: "B.M.B ترحب بك";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: transparent;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
