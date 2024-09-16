@@ -7,7 +7,7 @@ export default defineConfig({
   base: "/",
   build: {
     rollupOptions: {
-      external: ["react-bootstrap", "react-icons/fa"],
+      external: ["react-bootstrap", "./react-icons/fa"],
     },
   },
   server: {

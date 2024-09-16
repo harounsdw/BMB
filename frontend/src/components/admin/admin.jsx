@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import items from "../Tableau/data.jsx";
-import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "/react-icons/fa";
+import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "react-icons/fa";
 import {
   useRegisterMutation,
   useUpdateUserMutation,
