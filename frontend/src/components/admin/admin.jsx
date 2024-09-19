@@ -298,7 +298,7 @@ const Admin = () => {
         <div className="notification-popup">
           <div className="notification-content">
             <input type="text" placeholder="الرصيد" />
-            <button type="submit">إرسال</button>
+            <button type="submit">تحديث</button>
             <button
               className="close-notification-btn"
               onClick={toggleupshopPopup}
@@ -366,9 +366,10 @@ const Admin = () => {
                 type="text"
                 id="points"
                 name="points"
-                placeholder="180"
+                placeholder="150"
                 value={points}
                 onChange={(e) => setPoints(e.target.value)}
+                disabled
               />
               <input
                 type="text"

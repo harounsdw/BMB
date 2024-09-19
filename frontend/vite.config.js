@@ -14,7 +14,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://big-money-business.netlify.app/",
+        target: "http://localhost:8000",
         changeOrigin: true,
       },
     },
