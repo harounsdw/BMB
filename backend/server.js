@@ -16,12 +16,12 @@ const app = express();
 // CORS configuration to allow requests from your Netlify frontend
 app.use(
   cors({
-    origin: "https://big-money-business.netlify.app", // Only allow this specific domain
-    credentials: true, // Allow cookies and credentials
-    methods: "GET,POST,PUT,DELETE,OPTIONS", // Allow specific methods
-    allowedHeaders: "Content-Type,Authorization", // Allow specific headers
+    origin: "*", // Allows access from any origin
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
+app.options("*", cors()); // Enable CORS pre-flight across the board
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
