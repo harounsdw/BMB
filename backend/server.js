@@ -1,7 +1,6 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 import connectDB from "./config/db.js";
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -12,12 +11,7 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://big-money-business.netlify.app", // Allow requests from your Netlify domain
-    credentials: true, // If you need to allow credentials like cookies
-  })
-);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
