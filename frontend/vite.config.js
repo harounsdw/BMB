@@ -14,8 +14,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target:
-          "https://api.render.com/deploy/srv-crm9lhg8fa8c73afe8r0?key=XF_yccJj5z4",
+        target: "http://localhost:10000",
         changeOrigin: true,
       },
     },
