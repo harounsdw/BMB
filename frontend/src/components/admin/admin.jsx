@@ -197,7 +197,7 @@ const Admin = () => {
 
     try {
       // Correct URL should be used
-      await fetch("/api/users/transfer-points", {
+      await fetch("https://bmb-9bgg.onrender.com/api/users/transfer-points", {
         // Ensure this matches your backend route
         method: "PUT",
         headers: {

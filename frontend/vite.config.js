@@ -11,11 +11,12 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 10000,
     proxy: {
       "/api": {
-        target: "http://localhost:10000",
+        target: "https://bmb-9bgg.onrender.com", // Use your Render API URL here
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""), // Optional: Depending on how your API is set up
       },
     },
   },

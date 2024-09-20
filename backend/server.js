@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/users", userRoutes);
+app.use("https://bmb-9bgg.onrender.com/api/users", userRoutes);
 
 app.get("/", (req, res) => res.send("server is ready"));
 app.use(notFound);
