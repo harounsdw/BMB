@@ -15,7 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/users", userRoutes);
+app.use(
+  "https://api.render.com/deploy/srv-crm9lhg8fa8c73afe8r0?key=XF_yccJj5z4",
+  userRoutes
+);
 
 app.get("/", (req, res) => res.send("server is ready"));
 app.use(notFound);
