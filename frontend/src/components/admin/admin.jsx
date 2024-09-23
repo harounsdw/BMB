@@ -252,11 +252,19 @@ const Admin = () => {
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
-                placeholder="الرصيد المرسل "
+                placeholder="الرصيد المرسل"
                 value={pointsToSends}
-                onChange={(e) => setPointsToSend(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value >= 0) {
+                    // Allow only positive numbers
+                    setPointsToSend(value);
+                  }
+                }}
+                min="0" // This ensures only non-negative numbers can be typed
                 required
               />
+
               <input
                 type="text"
                 placeholder="معرف الشريك"
