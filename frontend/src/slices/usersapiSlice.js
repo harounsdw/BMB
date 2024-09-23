@@ -27,8 +27,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
         method: "PUT",
-        credentials: "include",
-        body: JSON.stringify(data),
+        body: data,
+        credentials: "include", // Include cookies with the request
         headers: {
           "Content-Type": "application/json",
         },
