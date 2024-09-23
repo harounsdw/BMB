@@ -210,10 +210,10 @@ const Admin = () => {
           return response.json();
         })
         .then((data) => {
-          alert("Points transferred successfully");
+          toast.success("تم ارسال الرصيد");
         });
     } catch (error) {
-      toast.error("Error transferring points");
+      toast.error("الرصيد غير كافي");
     }
   };
 
