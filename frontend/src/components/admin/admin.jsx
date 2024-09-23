@@ -213,7 +213,7 @@ const Admin = () => {
           toast.success("تم ارسال الرصيد");
         });
     } catch (error) {
-      toast.error("الرصيد غير كافي");
+      toast.error("الرجاء التثبت من البيانات!");
     }
   };
 
