@@ -28,7 +28,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/profile`,
         method: "PUT",
         credentials: "include",
-        body: data,
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }),
     }),
     updateTotalIncome: builder.mutation({
