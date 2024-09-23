@@ -12,12 +12,13 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
-
+const allowedOrigins = ["https://big-money-business.netlify.app"];
 // CORS configuration to allow requests from your Netlify frontend
 app.use(
   cors({
-    origin: "*", // Allows access from any origin
+    origin: allowedOrigins,
     methods: "GET,POST,PUT,DELETE,OPTIONS",
+    credentials: true,
     allowedHeaders: "Content-Type,Authorization",
   })
 );
