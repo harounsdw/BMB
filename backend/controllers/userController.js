@@ -197,7 +197,7 @@ const transferPoints = async (req, res) => {
     }
 
     // Check if the sender has enough points to transfer
-    if (sender.points < pointsToTransfer) {
+    if (sender.points < pointsToSending) {
       return res
         .status(400)
         .json({ message: "Insufficient points to transfer" });
