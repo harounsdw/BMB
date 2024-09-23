@@ -13,7 +13,7 @@ connectDB();
 
 const app = express();
 
-const allowedOrigins = ["https://big-money-business.netlify.app"]; // Replace with your frontend domain
+const allowedOrigins = ["https://big-money-business.netlify.app/"]; // Replace with your frontend domain
 
 app.use(
   cors({
