@@ -198,7 +198,7 @@ const transferPoints = async (req, res) => {
 
     // Check if the sender has enough points to transfer
     if (sender.points < pointsToSending) {
-      return res.status(400).json({ message: "الرصيد غير كافي" });
+      return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 
     // Update points for sender and recipient
