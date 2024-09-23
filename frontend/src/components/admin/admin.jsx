@@ -257,11 +257,11 @@ const Admin = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   if (value >= 0) {
-                    // Allow only positive numbers
                     setPointsToSend(value);
                   }
                 }}
-                min="0" // This ensures only non-negative numbers can be typed
+                min="0" // Prevents typing negative numbers
+                onWheel={(e) => e.target.blur()} // Disables scrolling through negative numbers
                 required
               />
 
