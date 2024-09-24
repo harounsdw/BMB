@@ -13,8 +13,6 @@ connectDB();
 
 const app = express();
 
-import cors from "cors";
-
 // CORS configuration
 const allowedOrigins = ["https://big-money-business.netlify.app"]; // Replace with your Netlify domain
 
