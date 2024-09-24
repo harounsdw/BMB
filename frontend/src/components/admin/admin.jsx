@@ -5,6 +5,7 @@ import items from "../Tableau/data.jsx";
 import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "react-icons/fa";
 import {
   useRegisterMutation,
+  useUpdateUserMutation,
   useUpdateTotalIncomeMutation,
   useTransferPointsMutation,
 } from "../../slices/usersapiSlice";
@@ -30,6 +31,7 @@ const Admin = () => {
   // Redux state
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [register, { isLoading }] = useRegisterMutation();
   const navigate = useNavigate();
   const [updateTotalIncome] = useUpdateTotalIncomeMutation();
@@ -87,42 +89,32 @@ const Admin = () => {
   // Submission handlers
   const submitUpdateHandler = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error("كلمات المرور غير متطابقة");
+    } else {
+      try {
+        const res = await updateProfile({
+          _id: userInfo._id,
+          nom,
+          prenom,
+          pseudo,
+          email,
+          tel,
+          password,
+        }).unwrap();
 
-    const token = localStorage.getItem("token"); // Retrieve the token
-
-    if (!token) {
-      toast.error("User is not logged in, token is missing.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://bmb-9bgg.onrender.com/api/users/profile",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`, // Include token in Authorization header
-          },
-          body: JSON.stringify({
-            nom,
-            prenom,
-            pseudo,
-            email,
-            tel,
-            password,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update profile.");
+        // Dispatch updated credentials, merging with existing data
+        dispatch(
+          setCredentials({
+            ...userInfo, // Preserve the existing data
+            ...res, // Apply updated fields
+          })
+        );
+        toggleUpdatePopup();
+        toast.success("تم التحديث");
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
       }
-
-      const data = await response.json();
-      toast.success("Profile updated successfully.");
-    } catch (error) {
-      toast.error(error.message || "Error updating profile.");
     }
   };
 
