@@ -131,7 +131,7 @@ const Admin = () => {
         toggleUpdatePopup();
         toast.success("تم التحديث");
       } catch (error) {
-        console.log("Token:", userInfo.token);
+        toast.error("Token:", userInfo.token);
 
         toast.error("حدث خطأ أثناء التحديث");
       }
