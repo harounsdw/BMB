@@ -96,7 +96,7 @@ const Admin = () => {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.userInfo.token}`, // Assuming you have the JWT token stored in userInfo
+            Authorization: `Bearer ${userInfo.token}`, // Assuming you have the JWT token stored in userInfo
           },
           withCredentials: true, // Include cookies in request
         };
