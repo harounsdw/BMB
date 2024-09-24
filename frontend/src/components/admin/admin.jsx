@@ -8,6 +8,8 @@ import {
   useUpdateTotalIncomeMutation,
   useTransferPointsMutation,
 } from "../../slices/usersapiSlice";
+import axios from "axios";
+
 import { setCredentials } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import Header from "../Header/Header";
