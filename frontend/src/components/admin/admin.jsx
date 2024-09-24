@@ -26,6 +26,7 @@ const Admin = () => {
   const [points, setPoints] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const token = useSelector((state) => state.user.token); // Assuming token is stored in user slice
 
   // Redux state
   const { userInfo } = useSelector((state) => state.auth);
@@ -103,7 +104,7 @@ const Admin = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Pass the token here
+            Authorization: `Bearer ${userInfo.token}`, // Pass the token here
           },
           body: JSON.stringify({
             nom,
