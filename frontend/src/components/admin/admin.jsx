@@ -111,7 +111,6 @@ const Admin = () => {
               Authorization: `Bearer ${userInfo.token}`,
             },
             body: JSON.stringify(data),
-            credentials: "include", // Include credentials like cookies or tokens
           }
         );
 
