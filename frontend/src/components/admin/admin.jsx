@@ -8,7 +8,6 @@ import {
   useUpdateTotalIncomeMutation,
   useTransferPointsMutation,
 } from "../../slices/usersapiSlice";
-import axios from "axios";
 
 import { setCredentials } from "../../slices/authSlice";
 import { toast } from "react-toastify";
@@ -92,42 +91,48 @@ const Admin = () => {
     if (password !== confirmPassword) {
       toast.error("كلمات المرور غير متطابقة");
     } else {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`, // Assuming you have the JWT token stored in userInfo
-          },
-          withCredentials: true, // Include cookies in request
-        };
+      const data = {
+        _id: userInfo._id,
+        nom,
+        prenom,
+        pseudo,
+        email,
+        tel,
+        password,
+      };
 
-        // Make the API request using Axios
-        const { data } = await axios.put(
-          `https://bmb-9bgg.onrender.com/api/users/profile`,
+      try {
+        const response = await fetch(
+          "https://bmb-9bgg.onrender.com/api/users/profile",
           {
-            _id: userInfo._id,
-            nom,
-            prenom,
-            pseudo,
-            email,
-            tel,
-            password,
-          },
-          config
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${userInfo.token}`, // Include JWT token
+            },
+            body: JSON.stringify(data),
+            credentials: "include", // Ensure credentials are included
+          }
         );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const result = await response.json();
 
         // Dispatch updated credentials, merging with existing data
         dispatch(
           setCredentials({
             ...userInfo, // Preserve the existing data
-            ...data, // Apply updated fields
+            ...result, // Apply updated fields
           })
         );
 
         toggleUpdatePopup();
         toast.success("تم التحديث");
-      } catch (err) {
-        toast.error(err.response?.data?.message || err.message);
+      } catch (error) {
+        toast.error("حدث خطأ أثناء التحديث");
       }
     }
   };
