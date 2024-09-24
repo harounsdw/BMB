@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
 const USERS_URL = "https://bmb-9bgg.onrender.com/api/users";
+import { setCredentials } from "./authSlice"; // Make sure the path is correct
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,7 +17,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           // Dispatch setCredentials with user info and token
           dispatch(setCredentials(data));
 
-          // Optionally, store the token in localStorage
+          // Store the token in localStorage
           localStorage.setItem("token", data.token);
         } catch (err) {
           console.error("Login error:", err);
@@ -49,10 +50,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
           url: `${USERS_URL}/profile`,
           method: "PUT",
           body: data,
-          credentials: "include", // Include cookies with the request if necessary
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Send token in Authorization header
+            Authorization: `Bearer ${token}`, // Include token in Authorization header
           },
         };
       },

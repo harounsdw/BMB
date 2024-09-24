@@ -64,7 +64,7 @@ const authUser = asyncHandler(async (req, res) => {
         })
       : null;
 
-    generateToken(res, user._id);
+    const token = generateToken(res, user._id);
 
     res.json({
       _id: user._id,
@@ -86,6 +86,7 @@ const authUser = asyncHandler(async (req, res) => {
       fourthGenUserCount,
       fifthGenUserCount, // Fifth-generation count
       sixthGenUserCount, // Sixth-generation count
+      token,
     });
   } else {
     res.status(401);
