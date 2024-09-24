@@ -9,7 +9,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          // Dispatch setCredentials with user info and token
+          dispatch(setCredentials(data));
+
+          // Optionally, store the token in localStorage
+          localStorage.setItem("token", data.token);
+        } catch (err) {
+          console.error("Login error:", err);
+        }
+      },
     }),
+
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_URL}/logout`,
@@ -27,9 +41,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (data) => {
         const token = localStorage.getItem("token");
 
-        // Log the token for debugging
-        console.log("Token:", token);
-
         if (!token) {
           throw new Error("Token is missing");
         }
@@ -38,9 +49,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
           url: `${USERS_URL}/profile`,
           method: "PUT",
           body: data,
+          credentials: "include", // Include cookies with the request if necessary
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Add token here
+            Authorization: `Bearer ${token}`, // Send token in Authorization header
           },
         };
       },
