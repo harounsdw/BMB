@@ -13,15 +13,16 @@ connectDB();
 
 const app = express();
 
-// CORS configuration to allow requests from your Netlify frontend
+import cors from "cors";
+
+const allowedOrigins = ["https://big-money-business.netlify.app"];
+
 app.use(
   cors({
-    origin: "*", // Allows access from any origin
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
-    allowedHeaders: "Content-Type,Authorization",
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies and credentials to be sent
   })
 );
-app.options("*", cors()); // Enable CORS pre-flight across the board
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

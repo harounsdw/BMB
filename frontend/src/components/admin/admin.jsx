@@ -108,10 +108,10 @@ const Admin = () => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${userInfo.token}`, // Include JWT token
+              Authorization: `Bearer ${userInfo.token}`,
             },
             body: JSON.stringify(data),
-            credentials: "include", // Ensure credentials are included
+            credentials: "include", // Include credentials like cookies or tokens
           }
         );
 
@@ -121,11 +121,10 @@ const Admin = () => {
 
         const result = await response.json();
 
-        // Dispatch updated credentials, merging with existing data
         dispatch(
           setCredentials({
-            ...userInfo, // Preserve the existing data
-            ...result, // Apply updated fields
+            ...userInfo,
+            ...result,
           })
         );
 
