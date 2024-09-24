@@ -111,7 +111,7 @@ const Admin = () => {
               Authorization: `Bearer ${userInfo.token}`,
             },
             body: JSON.stringify(data),
-            credentials: "include", // Ensure credentials (cookies) are included
+            credentials: "include",
           }
         );
 
@@ -131,6 +131,8 @@ const Admin = () => {
         toggleUpdatePopup();
         toast.success("تم التحديث");
       } catch (error) {
+        console.log("Token:", userInfo.token);
+
         toast.error("حدث خطأ أثناء التحديث");
       }
     }
