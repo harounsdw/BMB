@@ -1,21 +1,24 @@
 import jwt from "jsonwebtoken";
 
 export const protect = (req, res, next) => {
-  let token =
-    req.headers.authorization && req.headers.authorization.startsWith("Bearer")
-      ? req.headers.authorization.split(" ")[1]
-      : null;
+  let token;
 
-  if (!token) {
-    res.status(401).json({ message: "Not authorized, token missing" });
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1]; // Extract the token
   }
 
-  // Verify the token and extract user info
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Not authorized, token failed" });
-    }
-    req.user = decoded; // store decoded token payload in req.user
+  if (!token) {
+    return res.status(401).json({ message: "Not authorized, token missing" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Attach decoded token payload to req.user
     next();
-  });
+  } catch (error) {
+    res.status(401).json({ message: "Not authorized, token failed" });
+  }
 };

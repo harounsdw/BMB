@@ -88,50 +88,43 @@ const Admin = () => {
   const submitUpdateHandler = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      toast.error("كلمات المرور غير متطابقة");
-    } else {
-      const data = {
-        _id: userInfo._id,
-        nom,
-        prenom,
-        pseudo,
-        email,
-        tel,
-        password,
-      };
+    // Check if token exists
+    const token = userInfo?.token; // Assuming userInfo is where the token is stored
 
-      try {
-        const response = await fetch(
-          "https://bmb-9bgg.onrender.com/api/users/profile",
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-            body: JSON.stringify(data),
-          }
-        );
+    if (!token) {
+      toast.error("User is not logged in, token is missing.");
+      return;
+    }
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    try {
+      const response = await fetch(
+        "https://bmb-9bgg.onrender.com/api/users/profile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Pass the token here
+          },
+          body: JSON.stringify({
+            nom,
+            prenom,
+            pseudo,
+            email,
+            tel,
+            password,
+          }),
         }
+      );
 
-        const result = await response.json();
-
-        dispatch(
-          setCredentials({
-            ...userInfo,
-            ...result,
-          })
-        );
-
-        toggleUpdatePopup();
-        toast.success("تم التحديث");
-      } catch (error) {
-        toast.error("حدث خطأ أثناء التحديث");
+      if (!response.ok) {
+        throw new Error("Failed to update profile.");
       }
+
+      const data = await response.json();
+      toast.success("Profile updated successfully.");
+      // Handle success, e.g., update state or dispatch credentials
+    } catch (error) {
+      toast.error(error.message || "Error updating profile.");
     }
   };
 
