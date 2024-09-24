@@ -26,7 +26,7 @@ const Admin = () => {
   const [points, setPoints] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const token = useSelector((state) => state.user.token); // Assuming token is stored in user slice
+  const token = useSelector((state) => state.userInfo.token); // Assuming token is stored in user slice
 
   // Redux state
   const { userInfo } = useSelector((state) => state.auth);
