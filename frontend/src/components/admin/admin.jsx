@@ -108,6 +108,7 @@ const Admin = () => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${userInfo.token}`,
             },
             body: JSON.stringify(data),
           }
