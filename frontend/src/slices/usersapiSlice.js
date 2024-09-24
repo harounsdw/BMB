@@ -25,7 +25,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     updateUser: builder.mutation({
       query: (data) => {
-        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        const token = localStorage.getItem("token");
+
+        // Log the token for debugging
+        console.log("Token:", token);
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
 
         return {
           url: `${USERS_URL}/profile`,
@@ -33,7 +40,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           body: data,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`, // Add token here
           },
         };
       },
