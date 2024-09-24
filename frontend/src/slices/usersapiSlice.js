@@ -18,7 +18,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           dispatch(setCredentials(data));
 
           // Store the token in localStorage
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("jwt", data.jwt);
         } catch (err) {
           console.error("Login error:", err);
         }
@@ -40,9 +40,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     updateUser: builder.mutation({
       query: (data) => {
-        const token = localStorage.getItem("token");
+        const jwt = localStorage.getItem("jwt");
 
-        if (!token) {
+        if (!jwt) {
           throw new Error("Token is missing");
         }
 
@@ -53,7 +53,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include token in Authorization header
+            Authorization: `Bearer ${jwt}`, // Include token in Authorization header
           },
         };
       },

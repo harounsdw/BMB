@@ -17,8 +17,8 @@ const authSlice = createSlice({
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
 
       // Save token in localStorage (assuming token is part of userInfo)
-      if (action.payload.token) {
-        localStorage.setItem("token", action.payload.token);
+      if (action.payload.jwt) {
+        localStorage.setItem("jwt", action.payload.jwt);
       }
     },
     logout: (state, action) => {
@@ -26,7 +26,7 @@ const authSlice = createSlice({
 
       // Remove user info and token from localStorage on logout
       localStorage.removeItem("userInfo");
-      localStorage.removeItem("token");
+      localStorage.removeItem("jwt");
     },
   },
 });
