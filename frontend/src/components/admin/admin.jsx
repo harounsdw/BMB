@@ -88,8 +88,7 @@ const Admin = () => {
   const submitUpdateHandler = async (e) => {
     e.preventDefault();
 
-    // Check if token exists
-    const token = userInfo?.token; // Assuming userInfo is where the token is stored
+    const token = localStorage.getItem("token"); // Retrieve the token
 
     if (!token) {
       toast.error("User is not logged in, token is missing.");
@@ -103,7 +102,7 @@ const Admin = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`, // Pass the token here
+            Authorization: `Bearer ${token}`, // Include token in Authorization header
           },
           body: JSON.stringify({
             nom,
@@ -122,7 +121,6 @@ const Admin = () => {
 
       const data = await response.json();
       toast.success("Profile updated successfully.");
-      // Handle success, e.g., update state or dispatch credentials
     } catch (error) {
       toast.error(error.message || "Error updating profile.");
     }
