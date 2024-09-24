@@ -102,7 +102,7 @@ const Admin = () => {
         };
 
         // Make the API request using Axios
-        const { data } = await axios.put(
+        const { data } = await axios.patch(
           `https://bmb-9bgg.onrender.com/api/users/profile`,
           {
             _id: userInfo._id,

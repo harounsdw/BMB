@@ -18,7 +18,7 @@ router.post("/logout", logoutUser);
 router
   .route("/profile")
   .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .patch(protect, updateUserProfile);
 
 router.put("/transfer-points", transferPoints);
 
