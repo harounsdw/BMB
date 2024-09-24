@@ -23,17 +23,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    updateUser: builder.mutation({
-      query: (data) => ({
-        url: `${USERS_URL}/profile`,
-        method: "PUT",
-        body: data,
-        credentials: "include", // Include cookies with the request
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    }),
+
     updateTotalIncome: builder.mutation({
       query: (totalIncome) => ({
         url: `${USERS_URL}/total`,
@@ -55,7 +45,6 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
-  useUpdateUserMutation,
   useUpdateTotalIncomeMutation,
   useTransferPointsMutation,
 } = userApiSlice;

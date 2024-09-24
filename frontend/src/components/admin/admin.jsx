@@ -5,7 +5,6 @@ import items from "../Tableau/data.jsx";
 import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "react-icons/fa";
 import {
   useRegisterMutation,
-  useUpdateUserMutation,
   useUpdateTotalIncomeMutation,
   useTransferPointsMutation,
 } from "../../slices/usersapiSlice";
@@ -30,7 +29,6 @@ const Admin = () => {
   // Redux state
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [updateProfile, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [register, { isLoading }] = useRegisterMutation();
   const navigate = useNavigate();
   const [updateTotalIncome] = useUpdateTotalIncomeMutation();
@@ -88,31 +86,46 @@ const Admin = () => {
   // Submission handlers
   const submitUpdateHandler = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       toast.error("كلمات المرور غير متطابقة");
     } else {
       try {
-        const res = await updateProfile({
-          _id: userInfo._id,
-          nom,
-          prenom,
-          pseudo,
-          email,
-          tel,
-          password,
-        }).unwrap();
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`, // Assuming you have the JWT token stored in userInfo
+          },
+          withCredentials: true, // Include cookies in request
+        };
+
+        // Make the API request using Axios
+        const { data } = await axios.put(
+          `https://bmb-9bgg.onrender.com/api/users/profile`,
+          {
+            _id: userInfo._id,
+            nom,
+            prenom,
+            pseudo,
+            email,
+            tel,
+            password,
+          },
+          config
+        );
 
         // Dispatch updated credentials, merging with existing data
         dispatch(
           setCredentials({
             ...userInfo, // Preserve the existing data
-            ...res, // Apply updated fields
+            ...data, // Apply updated fields
           })
         );
+
         toggleUpdatePopup();
         toast.success("تم التحديث");
       } catch (err) {
-        toast.error(err?.data?.message || err.error);
+        toast.error(err.response?.data?.message || err.message);
       }
     }
   };
@@ -213,7 +226,7 @@ const Admin = () => {
           toast.success("تم ارسال الرصيد");
         });
     } catch (error) {
-      toast.error("الرجاء التثبت من البيانات!");
+      toast.error("!الرجاء التثبت من البيانات");
     }
   };
 
