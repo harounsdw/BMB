@@ -1,6 +1,5 @@
 import { apiSlice } from "./apiSlice";
-const USERS_URL = "https://bmb-9bgg.onrender.com/api/users";
-import { setCredentials } from "./authSlice"; // Make sure the path is correct
+const USERS_URL = "/api/users";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,21 +9,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-
-          // Dispatch setCredentials with user info and token
-          dispatch(setCredentials(data));
-
-          // Store the token in localStorage
-          localStorage.setItem("token", data.token);
-        } catch (err) {
-          console.error("Login error:", err);
-        }
-      },
     }),
-
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_URL}/logout`,
@@ -39,26 +24,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     updateUser: builder.mutation({
-      query: (data) => {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          throw new Error("Token is missing");
-        }
-
-        return {
-          url: `${USERS_URL}/profile`,
-          method: "PUT",
-          body: data,
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include token in Authorization header
-          },
-        };
-      },
+      query: (data) => ({
+        url: `${USERS_URL}/profile`,
+        method: "PUT",
+        body: data,
+      }),
     }),
-
     updateTotalIncome: builder.mutation({
       query: (totalIncome) => ({
         url: `${USERS_URL}/total`,
