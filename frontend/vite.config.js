@@ -14,9 +14,13 @@ export default defineConfig({
     port: 10000,
     proxy: {
       "/api": {
-        target: "https://bmb-9bgg.onrender.com", // Use your Render API URL here
+        target: "https://bmb-9bgg.onrender.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // Optional: Depending on how your API is set up
+        secure: false, // Disable SSL verification if necessary
+        cookieDomainRewrite: {
+          "*": "", // Ensure the cookie domain is not rewritten incorrectly
+        },
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

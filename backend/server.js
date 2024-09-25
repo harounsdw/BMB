@@ -14,12 +14,10 @@ connectDB();
 const app = express();
 
 // CORS configuration
-const allowedOrigins = ["https://big-money-business.netlify.app"]; // Replace with your Netlify domain
-
 app.use(
   cors({
-    origin: allowedOrigins, // Only allow requests from this origin
-    credentials: true, // Allow sending cookies and credentials
+    origin: "https://your-netlify-app.netlify.app", // Netlify frontend URL
+    credentials: true, // This allows cookies to be sent in cross-origin requests
   })
 );
 
