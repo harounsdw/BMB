@@ -5,11 +5,11 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "", // Your API base URL here
   prepareHeaders: (headers, { getState }) => {
     // Retrieve token from localStorage
-    const jwt = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
 
     // If token exists, set it in the Authorization header
-    if (jwt) {
-      headers.set("Authorization", `Bearer ${jwt}`);
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
     }
 
     return headers;
