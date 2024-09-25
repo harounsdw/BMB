@@ -64,7 +64,7 @@ const authUser = asyncHandler(async (req, res) => {
         })
       : null;
 
-    const token = generateToken(res, user._id);
+    generateToken(res, user._id);
 
     res.json({
       _id: user._id,
@@ -86,7 +86,6 @@ const authUser = asyncHandler(async (req, res) => {
       fourthGenUserCount,
       fifthGenUserCount, // Fifth-generation count
       sixthGenUserCount, // Sixth-generation count
-      token,
     });
   } else {
     res.status(401);
@@ -242,8 +241,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-
   if (user) {
+    user._id = req.body._id || user._id;
     user.nom = req.body.nom || user.nom;
     user.prenom = req.body.prenom || user.prenom;
     user.email = req.body.email || user.email;
