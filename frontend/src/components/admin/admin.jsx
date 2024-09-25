@@ -103,11 +103,11 @@ const Admin = () => {
           password,
         }).unwrap();
 
-        // Dispatch updated credentials, merging with existing data
+        // Dispatch updated credentials
         dispatch(
           setCredentials({
-            ...userInfo, // Preserve the existing data
-            ...res, // Apply updated fields
+            ...userInfo,
+            ...res,
           })
         );
         toggleUpdatePopup();
