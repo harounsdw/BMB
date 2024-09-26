@@ -5,6 +5,26 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import dotenv from "dotenv";
+const allowedOrigins = [
+  "https://bmb-hwd3zbty0-harouns-projects-00689d4a.vercel.app", // Production Vercel URL
+  "https://bmb-git-main-harouns-projects-00689d4a.vercel.app", // Another Vercel URL
+  "https://bmb-kappa.vercel.app/", // Replace this with your actual production URL
+];
+// Place this right after `app` is initialized
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests from vercel.app and your local dev environment if needed
+      if (/vercel\.app$/.test(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -14,23 +34,6 @@ connectDB();
 const app = express();
 
 // Allow multiple origins for Vercel URLs
-const allowedOrigins = [
-  "https://bmb-hwd3zbty0-harouns-projects-00689d4a.vercel.app", // Production Vercel URL
-  "https://bmb-git-main-harouns-projects-00689d4a.vercel.app", // Another Vercel URL
-  "https://bmb-kappa.vercel.app/", // Replace this with your actual production URL
-];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
