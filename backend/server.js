@@ -13,16 +13,13 @@ connectDB();
 
 const app = express();
 
-// CORS configuration to allow all origins temporarily
+// CORS configuration
 app.use(
   cors({
-    origin: "https://bmb-kappa.vercel.app/", // Only allow this specific domain
-    credentials: true, // Allow cookies and credentials
-    methods: "GET,POST,PUT,DELETE,OPTIONS", // Allow specific methods
-    allowedHeaders: "Content-Type,Authorization", // Allow specific headers
+    origin: "https://bmb-kappa.vercel.app", // Netlify frontend URL
+    credentials: true, // This allows cookies to be sent in cross-origin requests
   })
 );
-app.options("*", cors()); // Handle preflight requests for all routes
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
