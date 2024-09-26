@@ -16,7 +16,7 @@ const app = express();
 // CORS configuration
 app.use(
   cors({
-    origin: "https://big-money-business.netlify.app", // Netlify frontend URL
+    origin: "https://bmb-ph14n0ihg-harouns-projects-00689d4a.vercel.app/", // Netlify frontend URL
     credentials: true, // This allows cookies to be sent in cross-origin requests
   })
 );
