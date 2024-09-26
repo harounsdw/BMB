@@ -1,19 +1,10 @@
 import express from "express";
-import cors from "cors";
+import cors from "cors"; // Import CORS
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import dotenv from "dotenv";
-
-// Place this right after `app` is initialized
-app.use(
-  cors({
-    origin: "*", // Temporarily allow all origins
-    credentials: true,
-  })
-);
-
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -22,7 +13,13 @@ connectDB();
 
 const app = express();
 
-// Allow multiple origins for Vercel URLs
+// CORS configuration
+app.use(
+  cors({
+    origin: "https://bmb-kappa.vercel.app", // Netlify frontend URL
+    credentials: true, // This allows cookies to be sent in cross-origin requests
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
