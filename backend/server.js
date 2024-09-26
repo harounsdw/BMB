@@ -16,8 +16,10 @@ const app = express();
 // CORS configuration to allow all origins temporarily
 app.use(
   cors({
-    origin: "*", // Allow all origins temporarily
-    credentials: true, // Allows cookies to be sent in cross-origin requests
+    origin: "*", // Only allow this specific domain
+    credentials: true, // Allow cookies and credentials
+    methods: "GET,POST,PUT,DELETE,OPTIONS", // Allow specific methods
+    allowedHeaders: "Content-Type,Authorization", // Allow specific headers
   })
 );
 app.options("*", cors()); // Handle preflight requests for all routes

@@ -28,10 +28,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/profile`,
         method: "PUT",
         body: data,
-        credentials: "include", // Include cookies with the request
       }),
     }),
-
     updateTotalIncome: builder.mutation({
       query: (totalIncome) => ({
         url: `${USERS_URL}/total`,
