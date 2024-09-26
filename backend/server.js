@@ -14,12 +14,25 @@ connectDB();
 const app = express();
 
 // CORS configuration
+// Place this right after `app` is initialized
 app.use(
   cors({
-    origin: "https://bmb-kappa.vercel.app", // Netlify frontend URL
-    credentials: true, // This allows cookies to be sent in cross-origin requests
+    origin: (origin, callback) => {
+      // Allow requests from vercel.app and your local dev environment if needed
+      if (/vercel\.app$/.test(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
+app.options("*", cors()); // Handle preflight requests for all routes
+app.use((req, res, next) => {
+  console.log("Request origin:", req.headers.origin);
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
