@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors"; // Import CORS
+import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
@@ -13,11 +13,23 @@ connectDB();
 
 const app = express();
 
-// CORS configuration
+// Allow multiple origins for Vercel URLs
+const allowedOrigins = [
+  "https://bmb-kappa.vercel.app/", // Production Vercel URL
+  "https://bmb-git-main-harouns-projects-00689d4a.vercel.app/", // Another Vercel URL
+  "https://bmb-mermen9xh-harouns-projects-00689d4a.vercel.app/", // Replace this with your actual production URL
+];
+
 app.use(
   cors({
-    origin: "https://bmb-ph14n0ihg-harouns-projects-00689d4a.vercel.app/", // Netlify frontend URL
-    credentials: true, // This allows cookies to be sent in cross-origin requests
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 
