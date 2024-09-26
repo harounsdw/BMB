@@ -16,7 +16,7 @@ const app = express();
 // CORS configuration to allow all origins temporarily
 app.use(
   cors({
-    origin: "*", // Only allow this specific domain
+    origin: "https://bmb-kappa.vercel.app/", // Only allow this specific domain
     credentials: true, // Allow cookies and credentials
     methods: "GET,POST,PUT,DELETE,OPTIONS", // Allow specific methods
     allowedHeaders: "Content-Type,Authorization", // Allow specific headers
