@@ -40,10 +40,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
       },
     }),
     updateTotalIncome: builder.mutation({
-      query: (totalIncome) => ({
+      query: (data) => ({
         url: `${USERS_URL}/total`,
         method: "PUT",
-        body: { totalIncome },
+        body: { data },
       }),
     }),
     transferPoints: builder.mutation({
