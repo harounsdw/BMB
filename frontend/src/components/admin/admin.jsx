@@ -221,7 +221,7 @@ const Admin = () => {
   return (
     <div className="container">
       <h1 className="animated-title">B.M.B ترحب بك</h1>
-      <h1> في عائلة متكاملة معا نسعى إلى التطور والتقدم</h1>
+      <h1>أنت في عائلة متكاملة معا نسعى إلى التطور والتقدم</h1>
 
       {/* Button Grid */}
       <div className="button-grid">

@@ -40,11 +40,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
       },
     }),
     updateTotalIncome: builder.mutation({
-      query: (data) => ({
-        url: `${USERS_URL}/total`,
-        method: "PUT",
-        body: { data },
-      }),
+      query: (totalIncome) => {
+        const _vercel_jwt = localStorage.getItem("userInfo")
+          ? JSON.parse(localStorage.getItem("userInfo")).token
+          : null;
+
+        return {
+          url: `${USERS_URL}/total`,
+          method: "PUT",
+          body: { totalIncome },
+          headers: {
+            Authorization: `Bearer ${_vercel_jwt}`, // Send the token in the Authorization header
+          },
+        };
+      },
     }),
     transferPoints: builder.mutation({
       query: (data) => ({
