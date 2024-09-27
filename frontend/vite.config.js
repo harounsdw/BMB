@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   build: {
-    outDir: "frontend/dist",
+    outDir: "dist",
     rollupOptions: {
       external: ["./react-bootstrap", "./react-icons/fa"],
     },
