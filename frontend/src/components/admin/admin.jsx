@@ -101,7 +101,7 @@ const Admin = () => {
           email,
           tel,
           password,
-        }).unwrap();
+        }).unwrap({ credentials: "include" });
 
         // Dispatch updated credentials
         dispatch(

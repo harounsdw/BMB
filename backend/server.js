@@ -13,26 +13,12 @@ connectDB();
 
 const app = express();
 
-// CORS configuration
-// Place this right after `app` is initialized
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests from vercel.app and your local dev environment if needed
-      if (/vercel\.app$/.test(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: ["https://bmb-jwtv073sk-harouns-projects-00689d4a.vercel.app"],
     credentials: true,
   })
 );
-app.options("*", cors()); // Handle preflight requests for all routes
-app.use((req, res, next) => {
-  console.log("Request origin:", req.headers.origin);
-  next();
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
