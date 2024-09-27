@@ -24,11 +24,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     updateUser: builder.mutation({
-      query: (data) => ({
-        url: `${USERS_URL}/profile`,
-        method: "PUT",
-        body: data,
-      }),
+      query: (data) => {
+        const token = localStorage.getItem("userInfo")
+          ? JSON.parse(localStorage.getItem("userInfo")).token
+          : null;
+
+        return {
+          url: `${USERS_URL}/profile`,
+          method: "PUT",
+          body: data,
+          headers: {
+            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+          },
+        };
+      },
     }),
     updateTotalIncome: builder.mutation({
       query: (totalIncome) => ({
