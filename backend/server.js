@@ -15,7 +15,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://bmb-jwtv073sk-harouns-projects-00689d4a.vercel.app"],
+    origin: [
+      "https://bmb-jwtv073sk-harouns-projects-00689d4a.vercel.app",
+      "https://bmb-kappa.vercel.app",
+    ],
     credentials: true,
   })
 );
