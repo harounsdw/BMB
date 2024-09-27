@@ -40,7 +40,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       },
     }),
     updateTotalIncome: builder.mutation({
-      query: (data) => {
+      query: (totalIncome) => {
         const token = localStorage.getItem("userInfo")
           ? JSON.parse(localStorage.getItem("userInfo")).token
           : null;
@@ -48,7 +48,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return {
           url: `${USERS_URL}/total`,
           method: "PUT",
-          body: data,
+          body: { totalIncome },
           headers: {
             Authorization: `Bearer ${token}`, // Send the token in the Authorization header
           },
