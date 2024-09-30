@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors"; // Import CORS
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
@@ -12,13 +11,6 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
-
-app.use(
-  cors({
-    origin: ["https://bmb-kappa.vercel.app"],
-    credentials: true,
-  })
-);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
