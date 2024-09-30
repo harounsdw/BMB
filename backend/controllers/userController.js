@@ -98,7 +98,7 @@ const registerUser = asyncHandler(async (req, res) => {
     req.body;
 
   // Fetch the connected user
-  const connectedUser = await User.findById(req.user._id); // Assuming req.user contains the logged-in user data
+  const connectedUser = req.user; // Now req.user is populated from the middleware
 
   if (!connectedUser) {
     res.status(401);
@@ -150,7 +150,6 @@ const registerUser = asyncHandler(async (req, res) => {
       createdBy: user.createdBy,
       tel: user.tel,
       points: user.points,
-      allpoints: user.allpoints,
       role: user.role,
     });
   } else {
