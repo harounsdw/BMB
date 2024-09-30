@@ -8,12 +8,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/auth`,
         method: "POST",
         body: data,
+        credentials: "include", // Include credentials (cookies) in the request
       }),
     }),
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_URL}/logout`,
         method: "POST",
+        credentials: "include", // Include credentials (cookies) in the request
       }),
     }),
     register: builder.mutation({
@@ -21,45 +23,31 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}`,
         method: "POST",
         body: data,
+        credentials: "include", // Include credentials (cookies) in the request
       }),
     }),
     updateUser: builder.mutation({
-      query: (data) => {
-        const token = localStorage.getItem("userInfo")
-          ? JSON.parse(localStorage.getItem("userInfo")).token
-          : null;
-
-        return {
-          url: `${USERS_URL}/profile`,
-          method: "PUT",
-          body: data,
-          headers: {
-            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
-          },
-        };
-      },
+      query: (data) => ({
+        url: `${USERS_URL}/profile`,
+        method: "PUT",
+        body: data,
+        credentials: "include", // Include credentials (cookies) in the request
+      }),
     }),
     updateTotalIncome: builder.mutation({
-      query: (totalIncome) => {
-        const token = localStorage.getItem("userInfo")
-          ? JSON.parse(localStorage.getItem("userInfo")).token
-          : null;
-
-        return {
-          url: `${USERS_URL}/total`,
-          method: "PUT",
-          body: { totalIncome },
-          headers: {
-            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
-          },
-        };
-      },
+      query: (totalIncome) => ({
+        url: `${USERS_URL}/total`,
+        method: "PUT",
+        body: { totalIncome },
+        credentials: "include", // Include credentials (cookies) in the request
+      }),
     }),
     transferPoints: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/transfer-points`,
         method: "PUT",
         body: data,
+        credentials: "include", // Include credentials (cookies) in the request
       }),
     }),
   }),
