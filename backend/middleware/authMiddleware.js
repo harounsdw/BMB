@@ -5,35 +5,23 @@ import User from "../Models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  // Check if the token exists in the authorization header or cookies
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    try {
-      token = req.headers.authorization.split(" ")[1]; // Extract token
+  token = req.cookies.jwt;
 
-      // Verify token
+  if (token) {
+    try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Find user by decoded token ID
-      req.user = await User.findById(decoded.id).select("-password");
-
-      if (!req.user) {
-        res.status(401);
-        throw new Error("المستخدم غير موجود");
-      }
+      req.user = await User.findById(decoded.userId).select("-password");
 
       next();
     } catch (error) {
+      console.error(error);
       res.status(401);
-      throw new Error("غير مصرح به، خطأ في المصادقة");
+      throw new Error("Not authorized, token failed");
     }
-  }
-
-  if (!token) {
+  } else {
     res.status(401);
-    throw new Error("غير مصرح به، لا يوجد رمز مميز");
+    throw new Error("Not authorized, no token");
   }
 });
 
