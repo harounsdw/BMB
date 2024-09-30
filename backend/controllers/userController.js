@@ -94,29 +94,35 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const {
-    nom,
-    prenom,
-    cin,
-    email,
-    password,
-    pseudo,
-    tel,
-    role,
-    points,
-    createdBy,
-  } = req.body;
+  const { nom, prenom, cin, email, password, pseudo, tel, points, createdBy } =
+    req.body;
+
+  // Fetch the connected user
+  const connectedUser = await User.findById(req.user._id); // Assuming req.user contains the logged-in user data
+
+  if (!connectedUser) {
+    res.status(401);
+    throw new Error("المستخدم غير موجود");
+  }
+
+  // Check if the connected user has at least 150 points
+  if (connectedUser.points < 150) {
+    res.status(403);
+    throw new Error(
+      "لا يمكنك إنشاء حساب جديد. يجب أن يكون لديك على الأقل 150 نقطة."
+    );
+  }
 
   // Check if the user already exists
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error("المستخدم موجود ");
+    throw new Error("المستخدم موجود بالفعل");
   }
 
   // Check if it's the first user and assign 'admin' role
   const isFirstUser = (await User.countDocuments({})) === 0;
-  const userRole = isFirstUser ? "admin" : role || "user"; // default role for others is "user"
+  const userRole = isFirstUser ? "admin" : "user"; // Default role for others is "user"
 
   // Create the new user
   const user = await User.create({
@@ -134,7 +140,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     generateToken(res, user._id);
-
     res.status(201).json({
       _id: user._id,
       nom: user.nom,
@@ -146,7 +151,6 @@ const registerUser = asyncHandler(async (req, res) => {
       tel: user.tel,
       points: user.points,
       allpoints: user.allpoints,
-
       role: user.role,
     });
   } else {
@@ -154,6 +158,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("بيانات المستخدم غير صالحة");
   }
 });
+
 const updateTotalIncome = asyncHandler(async (req, res) => {
   const { totalIncome } = req.body; // Get the total income from the request body
   const user = await User.findById(req.user._id); // Find the user based on the logged-in user's ID

@@ -135,11 +135,9 @@ const Admin = () => {
           points,
           password,
         }).unwrap();
+
         toast.success("تم تسجيل الحساب بنجاح");
         toggleFormPopup();
-
-        // Keep the user on the same page after registration, but do not auto-login
-        // Show a message prompting the user to log in
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
