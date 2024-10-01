@@ -2,7 +2,7 @@ import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "",
-  credentials: "include", // Ensure credentials (cookies) are included
+  credentials: "include",
 });
 
 export const apiSlice = createApi({
