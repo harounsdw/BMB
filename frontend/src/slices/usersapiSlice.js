@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-const USERS_URL = "https://bmb-9bgg.onrender.com/api/users";
+const USERS_URL = "https://bmb-nu.vercel.app/";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

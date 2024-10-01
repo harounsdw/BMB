@@ -1,7 +1,7 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://bmb-9bgg.onrender.com",
+  baseUrl: "",
   credentials: "include", // Ensure credentials (cookies) are included
 });
 
