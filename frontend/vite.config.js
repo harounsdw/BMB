@@ -15,7 +15,7 @@ export default defineConfig({
     port: 10000,
     proxy: {
       "/api": {
-        target: "https://bmb-nu.vercel.app",
+        target: "https://bmb-76h1.onrender.com",
         changeOrigin: true,
         secure: false, // Disable SSL verification if necessary
         cookieDomainRewrite: {
