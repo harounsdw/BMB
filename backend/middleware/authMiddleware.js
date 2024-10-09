@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import User from "../Models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -24,3 +27,4 @@ const protect = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized, no token");
   }
 });
+export { protect };
