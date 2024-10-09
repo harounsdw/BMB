@@ -102,7 +102,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!connectedUser) {
     res.status(401);
-    throw new Error("المستخدم غير موجود");
+    throw new Error("المستخدم غير غير موجود");
   }
 
   // Check if the connected user has at least 150 points
