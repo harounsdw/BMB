@@ -13,12 +13,11 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
-app.use(
-  cors({
-    origin: ["https://big_money_business.surge.sh"],
-    credentials: true, // This allows cookies to be sent across domains
-  })
-);
+const corsOptions = {
+  origin: ["https://big_money_business.surge.sh"], // your frontend URL
+  credentials: true, // This allows cookies to be sent
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

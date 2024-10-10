@@ -7,6 +7,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (data) => ({
         url: `${USERS_URL}/auth`,
         method: "POST",
+        credentials: "include",
         body: data,
       }),
     }),
@@ -19,6 +20,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     register: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}`,
+        credentials: "include",
         method: "POST",
         body: data,
       }),
@@ -26,6 +28,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     updateUser: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
+        credentials: "include",
         method: "PUT",
         body: data,
       }),
@@ -33,6 +36,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     updateTotalIncome: builder.mutation({
       query: (totalIncome) => ({
         url: `${USERS_URL}/total`,
+        credentials: "include",
         method: "PUT",
         body: { totalIncome },
       }),
@@ -40,6 +44,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     transferPoints: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/transfer-points`,
+        credentials: "include",
         method: "PUT",
         body: data,
       }),
