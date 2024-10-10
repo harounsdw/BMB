@@ -176,7 +176,7 @@ const updateTotalIncome = asyncHandler(async (req, res) => {
   }
 });
 
-const transferPoints = async (req, res) => {
+const transferPoints = asyncHandler(async (req, res) => {
   try {
     const {
       senderPseudo,
@@ -219,7 +219,7 @@ const transferPoints = async (req, res) => {
     console.error("Error transferring points:", error);
     res.status(500).json({ message: "Error transferring points" });
   }
-};
+});
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
