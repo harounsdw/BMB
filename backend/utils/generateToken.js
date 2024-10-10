@@ -9,7 +9,7 @@ const generateToken = (res, userId) => {
   res.cookie("jwt", token, {
     httpOnly: true, // Cookie can't be accessed via client-side scripts
     secure: process.env.NODE_ENV === "production", // Only use HTTPS in production
-    sameSite: "Strict", // Ensures cookie is sent only to same-site requests
+    sameSite: "None", // Ensures cookie is sent only to same-site requests
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
