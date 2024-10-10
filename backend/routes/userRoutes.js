@@ -20,7 +20,7 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 
-router.put("/transfer-points", protect, transferPoints);
+router.put("/transfer-points", transferPoints);
 
 router.put("/total", protect, updateTotalIncome);
 export default router;
