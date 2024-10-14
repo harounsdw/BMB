@@ -210,6 +210,7 @@ const Admin = () => {
           return response.json();
         })
         .then((data) => {
+          toggleBalancePopup();
           toast.success("تم ارسال الرصيد");
         });
     } catch (error) {
