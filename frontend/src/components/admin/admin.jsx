@@ -249,7 +249,7 @@ const Admin = () => {
         <div className="balance-popup">
           <div className="balance-popup-content">
             <h3>التحقق من الرصيد</h3>
-            <p>{totalIncome + userInfo.pointstosend}</p>
+            <p>{totalIncome + userInfo.pointstosend + userInfo.allpoints}</p>
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
