@@ -268,7 +268,7 @@ const Admin = () => {
                 onWheel={(e) => e.target.blur()} // Disables scrolling through negative numbers
                 required
               />
-              {userInfo.role === "first" ? (
+              {userInfo.role === "admin" ? (
                 <input
                   type="text"
                   placeholder="معرف الشريك"
