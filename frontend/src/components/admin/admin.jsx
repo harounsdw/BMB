@@ -278,7 +278,12 @@ const Admin = () => {
                   required
                 />
               ) : (
-                <input type="hidden" value={adminId} required />
+                <input
+                  type="hidden"
+                  value={adminId}
+                  onChange={(e) => setPartnerId(e.target.value)}
+                  required
+                />
               )}
               <input
                 type="password"
