@@ -249,7 +249,10 @@ const Admin = () => {
         <div className="balance-popup">
           <div className="balance-popup-content">
             <h3>التحقق من الرصيد</h3>
-            <p>{totalIncome + userInfo.pointstosend + userInfo.allpoints}</p>
+            <p>
+              {totalIncome + userInfo.pointstosend + userInfo.allpoints}دينار
+              تونسي &nbsp; &nbsp; &nbsp; &nbsp;
+            </p>
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
@@ -265,14 +268,23 @@ const Admin = () => {
                 onWheel={(e) => e.target.blur()} // Disables scrolling through negative numbers
                 required
               />
-
-              <input
-                type="text"
-                placeholder="معرف الشريك"
-                value={partnerId}
-                onChange={(e) => setPartnerId(e.target.value)}
-                required
-              />
+              {userInfo.role === "first" ? (
+                <input
+                  type="text"
+                  placeholder="معرف الشريك"
+                  value={partnerId}
+                  onChange={(e) => setPartnerId(e.target.value)}
+                  required
+                />
+              ) : (
+                <input
+                  type="hidden"
+                  placeholder="معرف الشريك"
+                  value={partnerId}
+                  onChange={(e) => setPartnerId(e.target.value)}
+                  required
+                />
+              )}
               <input
                 type="password"
                 placeholder="كلمة السر "
