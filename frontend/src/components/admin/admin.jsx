@@ -192,7 +192,7 @@ const Admin = () => {
       pointsToTransfer: Number(pointsToSends), // Points to transfer
       pointsToSending: Number(pointsToSends),
       password: passwords, // Sender's password for validation
-      adminId: "66f2b9c3d5f63566ea9f5560",
+      adminId: partnerId,
     };
 
     try {
@@ -279,10 +279,10 @@ const Admin = () => {
                 />
               ) : (
                 <input
-                  type="hidden"
+                  type="text"
+                  placeholder="66f2b9c3d5f63566ea9f5560"
                   value={adminId}
-                  onChange={(e) => setPartnerId(e.target.value)}
-                  required
+                  disabled
                 />
               )}
               <input
