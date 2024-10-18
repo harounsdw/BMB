@@ -192,7 +192,6 @@ const Admin = () => {
       pointsToTransfer: Number(pointsToSends), // Points to transfer
       pointsToSending: Number(pointsToSends),
       password: passwords, // Sender's password for validation
-      adminId: partnerId,
     };
 
     try {
@@ -218,7 +217,6 @@ const Admin = () => {
       toast.error("!الرجاء التثبت من البيانات");
     }
   };
-  const adminId = "66f2b9c3d5f63566ea9f5560";
   return (
     <div className="container">
       <h1 className="animated-title">B.M.B ترحب بك</h1>
@@ -281,7 +279,7 @@ const Admin = () => {
                 <input
                   type="text"
                   placeholder="66f2b9c3d5f63566ea9f5560"
-                  value={adminId}
+                  value={"66f2b9c3d5f63566ea9f5560"}
                   disabled
                 />
               )}
