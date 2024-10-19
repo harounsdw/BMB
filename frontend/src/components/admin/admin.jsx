@@ -217,6 +217,7 @@ const Admin = () => {
       toast.error("!الرجاء التثبت من البيانات");
     }
   };
+  const adminId = "66f2b9c3d5f63566ea9f5560";
   return (
     <div className="container">
       <h1 className="animated-title">B.M.B ترحب بك</h1>
@@ -277,10 +278,9 @@ const Admin = () => {
                 />
               ) : (
                 <input
-                  type="text"
-                  placeholder="ID"
-                  value={"66f2b9c3d5f63566ea9f556088"}
-                  disabled
+                  type="hidden"
+                  value={adminId}
+                  onChange={(e) => setPartnerId(e.target.value)}
                 />
               )}
               <input
