@@ -202,7 +202,7 @@ const transferPoints = async (req, res) => {
     }
 
     // Check if the sender has enough points to transfer
-    if (sender.points < pointsToSending) {
+    if (sender.points < pointsToTransfer) {
       return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 
@@ -211,6 +211,7 @@ const transferPoints = async (req, res) => {
     recipient.points += pointsToTransfer;
     sender.pointstosend -= pointsToSending;
     recipient.pointstosend += pointsToSending;
+
     // Save both users
     await sender.save();
     await recipient.save();
@@ -221,6 +222,7 @@ const transferPoints = async (req, res) => {
     res.status(500).json({ message: "Error transferring points" });
   }
 };
+
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,

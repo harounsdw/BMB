@@ -279,8 +279,8 @@ const Admin = () => {
               ) : (
                 <input
                   type="hidden"
-                  value={adminId}
-                  onChange={(e) => setPartnerId(e.target.value)}
+                  value={adminId} // Set admin ID for regular users
+                  onChange={(e) => setPartnerId(adminId)}
                 />
               )}
               <input
