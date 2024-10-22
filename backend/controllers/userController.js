@@ -95,11 +95,11 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { nom, prenom, cin, email, password, pseudo, tel, points, createdBy } =
+  const { nom, prenom, cin, email, password, pseudo, tel, createdBy } =
     req.body;
 
-  // Fetch the connected user
-  const connectedUser = req.user; // Now req.user is populated from the middleware
+  // Fetch the connected user (who is creating the new account)
+  const connectedUser = req.user;
 
   if (!connectedUser) {
     res.status(401);
@@ -135,11 +135,15 @@ const registerUser = asyncHandler(async (req, res) => {
     pseudo,
     createdBy,
     tel,
-    points,
+    points: 0, // New users start with 0 points
     role: userRole,
   });
 
   if (user) {
+    // Give 150 points to the admin who registered the user
+    connectedUser.points += 150;
+    await connectedUser.save();
+
     generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,

@@ -186,37 +186,46 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // If the user is not an admin, set partnerId to admin's ID
+    const recipientId =
+      userInfo.role === "admin" ? partnerId : "66f2b9c3d5f63566ea9f5560"; // Admin's ID
+
     const data = {
-      senderPseudo: userInfo.pseudo,
-      recipientId: partnerId, // Recipient's user ID
+      senderPseudo: userInfo.pseudo, // Sender's pseudo
+      recipientId, // Recipient's user ID (admin's ID for non-admins)
       pointsToTransfer: Number(pointsToSends), // Points to transfer
-      pointsToSending: Number(pointsToSends),
+      pointsToSending: Number(pointsToSends), // Points to deduct from sender
       password: passwords, // Sender's password for validation
     };
 
     try {
-      // Correct URL should be used
-      await fetch("https://bmb-76h1.onrender.com/api/users/transfer-points", {
-        // Ensure this matches your backend route
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          return response.json();
-        })
-        .then((data) => {
-          toggleBalancePopup();
-          toast.success("تم ارسال الرصيد");
-        });
+      const response = await fetch(
+        "https://bmb-76h1.onrender.com/api/users/transfer-points",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Include credentials for cookies
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+
+      // If transfer is successful, close the popup and show success toast
+      toggleBalancePopup();
+      toast.success("تم ارسال الرصيد");
     } catch (error) {
+      // Show error message if the transfer fails
       toast.error("!الرجاء التثبت من البيانات");
     }
   };
+
   const adminId = "66f2b9c3d5f63566ea9f5560";
   return (
     <div className="container">
@@ -256,7 +265,7 @@ const Admin = () => {
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
-                placeholder="الرصيد المرسل"
+                placeholder="الرصيد لمرسل"
                 value={pointsToSends}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -390,6 +399,7 @@ const Admin = () => {
                 onChange={(e) => setPoints(e.target.value)}
                 disabled
               />
+
               <input
                 type="text"
                 id="creator"
