@@ -193,7 +193,7 @@ const transferPoints = async (req, res) => {
 
     // Find the sender by pseudo and the recipient by ID
     const sender = await User.findOne({ pseudo: senderPseudo });
-    const recipient = await User.findById(recipientId);
+    const recipient = await User.findById(recipientId); // Ensure recipientId is correctly passed
 
     if (!sender || !recipient) {
       return res.status(404).json({ message: "Sender or recipient not found" });
@@ -206,7 +206,7 @@ const transferPoints = async (req, res) => {
     }
 
     // Check if the sender has enough points to transfer
-    if (sender.points < pointsToTransfer) {
+    if (sender.points < pointsToSending) {
       return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 

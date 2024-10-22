@@ -259,13 +259,13 @@ const Admin = () => {
           <div className="balance-popup-content">
             <h3>التحقق من الرصيد</h3>
             <p>
-              {totalIncome + userInfo.pointstosend + userInfo.allpoints}دينار
-              تونسي &nbsp; &nbsp; &nbsp; &nbsp;
+              {totalIncome + userInfo.pointstosend + userInfo.allpoints} دينار
+              تونسي
             </p>
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
-                placeholder="الرصيد لمرسل"
+                placeholder="الرصيد المرسل"
                 value={pointsToSends}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -273,10 +273,12 @@ const Admin = () => {
                     setPointsToSend(value);
                   }
                 }}
-                min="0" // Prevents typing negative numbers
-                onWheel={(e) => e.target.blur()} // Disables scrolling through negative numbers
+                min="0"
+                onWheel={(e) => e.target.blur()}
                 required
               />
+
+              {/* Conditionally render partner ID input for admin, else use hidden input */}
               {userInfo.role === "admin" ? (
                 <input
                   type="text"
@@ -288,13 +290,14 @@ const Admin = () => {
               ) : (
                 <input
                   type="hidden"
-                  value={adminId} // Set admin ID for regular users
-                  onChange={(e) => setPartnerId(adminId)}
+                  value={adminId} // Automatically set adminId for regular users
+                  onChange={() => setPartnerId(adminId)}
                 />
               )}
+
               <input
                 type="password"
-                placeholder="كلمة السر "
+                placeholder="كلمة السر"
                 value={passwords}
                 onChange={(e) => setPasswords(e.target.value)}
                 required
