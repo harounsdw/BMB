@@ -192,7 +192,7 @@ const Admin = () => {
 
     const data = {
       senderPseudo: userInfo.pseudo, // Sender's pseudo
-      recipientId, // Recipient's user ID (admin's ID for non-admins)
+      recipientId: partnerId, // Recipient's user ID (admin's ID for non-admins)
       pointsToTransfer: Number(pointsToSends), // Points to transfer
       pointsToSending: Number(pointsToSends), // Points to deduct from sender
       password: passwords, // Sender's password for validation
@@ -265,7 +265,7 @@ const Admin = () => {
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
-                placeholder="الرصيد المرسل"
+                placeholder="الرصيد لمرسل"
                 value={pointsToSends}
                 onChange={(e) => {
                   const value = e.target.value;
