@@ -149,8 +149,8 @@ const registerUser = asyncHandler(async (req, res) => {
     // Find the admin and transfer 150 points from the user to the admin
     const adminUser = await User.findOne({ role: "admin" });
     if (adminUser) {
-      connectedUser.points -= 150; // Deduct 150 points from the user
-      adminUser.points += 150; // Add 150 points to the admin
+      connectedUser.pointstosend -= 150; // Deduct 150 points from the user
+      adminUser.pointstosend += 150; // Add 150 points to the admin
       await connectedUser.save();
       await adminUser.save();
     }
