@@ -106,7 +106,13 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("المستخدم غير موجود");
   }
 
-  // Check if the connected user has at least 150 points
+  // Allow only users with the role "user" to send points to the admin
+  if (connectedUser.role !== "user") {
+    res.status(403);
+    throw new Error("فقط المستخدمون يمكنهم إرسال النقاط إلى المشرف.");
+  }
+
+  // Ensure the connected user has at least 150 points
   if (connectedUser.points < 150) {
     res.status(403);
     throw new Error(
@@ -140,9 +146,14 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // Give 150 points to the admin who registered the user
-    connectedUser.points += 150;
-    await connectedUser.save();
+    // Find the admin and transfer 150 points from the user to the admin
+    const adminUser = await User.findOne({ role: "admin" });
+    if (adminUser) {
+      connectedUser.points -= 150; // Deduct 150 points from the user
+      adminUser.points += 150; // Add 150 points to the admin
+      await connectedUser.save();
+      await adminUser.save();
+    }
 
     generateToken(res, user._id);
     res.status(201).json({
