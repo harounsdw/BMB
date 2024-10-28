@@ -113,7 +113,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Ensure the connected user has at least 150 points
-  if (connectedUser.points < 150) {
+  if (connectedUser.pointstosend < 150) {
     res.status(403);
     throw new Error(
       "لا يمكنك إنشاء حساب جديد. يجب أن يكون لديك على الأقل 150 نقطة."
