@@ -1,6 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+
 import { Link, useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../../slices/usersapiSlice";
+import { logout } from "../../slices/authSlice";
 import items from "../Tableau/data.jsx";
 import { FaMoneyBill, FaPercent, FaUsers, FaUser } from "react-icons/fa";
 import {
@@ -115,6 +119,17 @@ const Admin = () => {
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
+    }
+  };
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -252,6 +267,7 @@ const Admin = () => {
         <button className="upshop-btn" onClick={toggleupshopPopup}>
           تحديث المتجر
         </button>
+        <button className="contract-btn">العقد الإلكتروني</button>
       </div>
       {/* Balance Popup */}
       {isBalancePopupVisible && (
@@ -580,9 +596,7 @@ const Admin = () => {
 
       {/* New Buttons */}
       <div className="new-buttons-container">
-        <button className="secondary-rank-profits-btn">
-          أرباح الرتب الثانوية:
-        </button>
+        <button className="secondary-rank-profits-btn">العروض :</button>
         <button className="ranc-btn">RANC:PARTNER </button>
       </div>
 
@@ -599,6 +613,14 @@ const Admin = () => {
               تاريخ اخر دخول:{" "}
               {userInfo.previousLastLogin || "لا يوجد تسجيل دخول سابق"}
             </h1>
+            <button
+              className="btn btn-outline-success"
+              type="submit"
+              onClick={logoutHandler}
+            >
+              خروج &nbsp;
+              <FaArrowLeft size={20} />
+            </button>
             <button className="info-btn info-btn-income">
               <span className="info-btn-content">
                 الدخل الكلي:{totalIncome}
