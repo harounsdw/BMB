@@ -597,7 +597,7 @@ const Admin = () => {
       {/* New Buttons */}
       <div className="new-buttons-container">
         <button className="secondary-rank-profits-btn">العروض :</button>
-        <button className="ranc-btn">RANC:PARTNER </button>
+        <button className="ranc-btn">RANC:PAR </button>
       </div>
 
       {/* Info Buttons */}
