@@ -1,7 +1,6 @@
 .container {
   padding: 20px;
   text-align: center;
-  background-image: url("../images/logoth.jpeg");
   background-repeat: no-repeat;
   background-position: right 210px top; /* Move the image 20px to the right */
   min-height: 100vh;
@@ -42,7 +41,7 @@
   border-radius: 5%;
 }
 .contract-btn {
-  margin-left: -50%;
+  margin-left: -20vh;
   padding: 20px 30px;
   background-color: #28a745;
   border: none;
@@ -53,7 +52,7 @@
   transition: background-color 0.3s ease;
 }
 .upshop-btn {
-  margin-right: -50%;
+  margin-right: -20vh;
   padding: 20px 30px;
   background-color: #28a745;
   border: none;

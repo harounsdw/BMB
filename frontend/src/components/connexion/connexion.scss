@@ -1,22 +1,8 @@
 .container {
   overflow-y: hidden;
-
-  h2 {
-    float: right;
+  .head {
+    color: rgb(83, 83, 212);
   }
-
-  .logo {
-    float: left;
-    width: 100px;
-    height: auto;
-  }
-
-  form {
-    background-attachment: fixed;
-    background-position: 5%;
-    padding: 5%;
-  }
-
   .connexion {
     display: block;
     margin: 50px auto 5%;

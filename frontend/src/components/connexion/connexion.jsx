@@ -31,9 +31,11 @@ const Connexion = () => {
 
   return (
     <div className="container">
-      <h1 className="animated-heading">B.M.B ترحب بك</h1>
-      <img src={logoUrl} alt="Logo" className="logo" />
-      <h2>تسجيل دخول</h2>
+      <h1>BIG MONEY BUSINESS</h1>
+      <h3>عالم البزنس مودل بين يديك</h3>
+      <h2>أهلاً بك</h2>
+      <br></br>
+      <h2 className="head">تسجيل الدخول</h2>
       <div className="row">
         <form onSubmit={onSubmit}>
           <input
