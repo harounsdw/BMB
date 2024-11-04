@@ -597,7 +597,7 @@ const Admin = () => {
       {/* New Buttons */}
       <div className="new-buttons-container">
         <button className="secondary-rank-profits-btn">العروض :</button>
-        <button className="ranc-btn">RANC:PAR </button>
+        <button className="ranc-btn">RANC:PARTNER </button>
       </div>
 
       {/* Info Buttons */}
@@ -613,6 +613,7 @@ const Admin = () => {
               تاريخ اخر دخول:{" "}
               {userInfo.previousLastLogin || "لا يوجد تسجيل دخول سابق"}
             </h1>
+            <br></br>
             <button
               className="btn btn-outline-success"
               type="submit"
