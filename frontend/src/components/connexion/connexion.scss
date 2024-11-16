@@ -1,15 +1,20 @@
-.container {
+.cnx {
   overflow-y: hidden;
-  .head {
-    color: rgb(83, 83, 212);
+
+  // Page heading
+  .row {
+    background-image: url("../images/b.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: auto 20px;
   }
   .connexion {
     display: block;
     margin: 50px auto 5%;
-    width: 80%; // Increased the width for smaller screens
-    max-width: 400px; // Set a maximum width for larger screens
+    width: 80%;
+    max-width: 400px;
     padding: 10px;
-    font-size: 1rem; // Use rem for font size for better scaling
+    font-size: 1rem;
     border: none;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 123, 255, 0.2);
@@ -24,11 +29,11 @@
   .btn {
     margin: auto;
     padding: 1% 0;
-    width: 80%; // Increased width for mobile
-    max-width: 400px; // Set max width for larger screens
-    font-size: 1rem; // Use rem for font size
+    width: 80%;
+    max-width: 400px;
+    font-size: 1rem;
     color: aqua;
-    background-color: #007bff;
+    background-color: #096b2b;
     border: none;
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(249, 245, 249, 0.2);
@@ -39,30 +44,54 @@
         0 8px 25px rgba(0, 123, 255, 0.5);
     }
   }
-}
+  .slider {
+    margin-top: 10px;
+    display: block;
+    position: relative;
+    .logo {
+      width: 300px;
+      height: auto;
+    }
+  }
+  .footer {
+    position: relative;
+    margin-top: 5vh;
+    padding: 10%;
+    background-image: url("../images/b.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: auto;
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 250px; // Adjust as needed
+    text-align: center;
+    animation: fadeInFooter 2s ease-in-out;
 
-.animated-heading {
-  font-size: 2.5em; // Adjusted for better scaling on mobile
-  text-align: center;
-  color: #007bff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: fadeInUp 2s ease-in-out;
+    button {
+      margin: 5px;
+      padding: 1% 0;
+      width: 20vh;
+      max-width: 200px;
+      font-size: 1rem;
+      color: aqua;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(249, 245, 249, 0.2);
+      transition: box-shadow 0.3s ease-in-out;
 
-  &::before {
-    content: "B.M.B ترحب بك";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    color: transparent;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-    z-index: -1;
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+          0 8px 25px rgba(0, 123, 255, 0.5);
+      }
+    }
   }
 }
 
-@keyframes fadeInUp {
+// Animation for Footer Fade-in Effect
+@keyframes fadeInFooter {
   0% {
     opacity: 0;
     transform: translateY(20px);
@@ -73,33 +102,29 @@
   }
 }
 
-/* Media query for smaller screens */
+// Adjust for smaller screens
 @media (max-width: 768px) {
-  .container {
-    form {
-      padding: 3%; // Reduced padding on smaller screens
-    }
-
+  .cnx {
     .connexion,
     .btn {
-      width: 90%; // Full width for smaller screens
+      width: 90%;
     }
 
-    .animated-heading {
-      font-size: 2em; // Smaller font for mobile
+    .footer {
+      height: 200px;
     }
   }
 }
 
 @media (max-width: 576px) {
-  .container {
+  .cnx {
     .connexion,
     .btn {
-      width: 95%; // Even more space for small mobile screens
+      width: 95%;
     }
 
-    .animated-heading {
-      font-size: 1.8em;
+    .footer {
+      height: 180px;
     }
   }
 }

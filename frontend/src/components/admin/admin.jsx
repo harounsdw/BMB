@@ -48,6 +48,8 @@ const Admin = () => {
   const [isUpdatePopupVisible, setUpdatePopupVisible] = useState(false);
   const [isBalancePopupVisible, setBalancePopupVisible] = useState(false);
   const [isupshopPopupVisible, setupshopPopupVisible] = useState(false);
+  const [isContractPopupOpen, setContractPopupOpen] = useState(false);
+  const toggleContractPopup = () => setContractPopupOpen(!isContractPopupOpen);
   const [pointsToSends, setPointsToSend] = useState("");
   const [partnerId, setPartnerId] = useState("");
   const [passwords, setPasswords] = useState("");
@@ -267,7 +269,9 @@ const Admin = () => {
         <button className="upshop-btn" onClick={toggleupshopPopup}>
           تحديث المتجر
         </button>
-        <button className="contract-btn">العقد الإلكتروني</button>
+        <button className="contract-btn" onClick={toggleContractPopup}>
+          العقد الإلكتروني
+        </button>
       </div>
       {/* Balance Popup */}
       {isBalancePopupVisible && (
@@ -339,7 +343,18 @@ const Admin = () => {
           </div>
         </div>
       )}
-
+      {/* Contract Popup */}
+      {isContractPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>العقد الإلكتروني</h2>
+            <p>محتوى العقد الإلكتروني هنا.</p>
+            <button className="close-btn" onClick={toggleContractPopup}>
+              إغلاق
+            </button>
+          </div>
+        </div>
+      )}
       {/* upshop Popup */}
       {isupshopPopupVisible && (
         <div className="notification-popup">
@@ -614,14 +629,7 @@ const Admin = () => {
               {userInfo.previousLastLogin || "لا يوجد تسجيل دخول سابق"}
             </h1>
             <br></br>
-            <button
-              className="btn btn-outline-success"
-              type="submit"
-              onClick={logoutHandler}
-            >
-              خروج &nbsp;
-              <FaArrowLeft size={20} />
-            </button>
+
             <button className="info-btn info-btn-income">
               <span className="info-btn-content">
                 الدخل الكلي:{totalIncome}
@@ -643,6 +651,14 @@ const Admin = () => {
           </>
         )}
       </div>
+      <button
+        className="btn btn-outline-success"
+        type="submit"
+        onClick={logoutHandler}
+      >
+        خروج &nbsp;
+        <FaArrowLeft size={20} />
+      </button>
     </div>
   );
 };

@@ -41,7 +41,9 @@
   border-radius: 5%;
 }
 .contract-btn {
-  margin-left: -20vh;
+  position: relative;
+  float: left;
+  margin-right: -20% !important;
   padding: 20px 30px;
   background-color: #28a745;
   border: none;
@@ -52,7 +54,9 @@
   transition: background-color 0.3s ease;
 }
 .upshop-btn {
-  margin-right: -20vh;
+  float: right;
+  margin-left: -20% !important;
+  position: relative;
   padding: 20px 30px;
   background-color: #28a745;
   border: none;
@@ -222,7 +226,10 @@
   background-color: #8d7e50; /* Yellow */
 }
 .btn-outline-success {
-  background-color: #ff5722;
+  position: relative !important;
+  background-color: #28a745 !important;
+  background-position: center;
+  padding: auto 100px !important;
 }
 .info-btn:hover {
   filter: brightness(1.1);

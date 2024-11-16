@@ -30,12 +30,11 @@ const Connexion = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container cnx">
       <h1>BIG MONEY BUSINESS</h1>
       <h3>عالم البزنس مودل بين يديك</h3>
       <h2>أهلاً بك</h2>
       <br></br>
-      <h2 className="head">تسجيل الدخول</h2>
       <div className="row">
         <form onSubmit={onSubmit}>
           <input
@@ -60,6 +59,14 @@ const Connexion = () => {
             دخول
           </button>
         </form>
+        <div className="slider">
+          <img src={logoUrl} alt="Logo" className="logo" />
+        </div>
+      </div>
+      <div className="footer">
+        <button>شروط الخدمة</button>
+        <button>قصتنا</button>
+        <button>رؤيتنا</button>
       </div>
     </div>
   );
