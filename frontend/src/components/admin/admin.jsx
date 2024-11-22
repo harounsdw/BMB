@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-
+import jsPDF from "jspdf";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/usersapiSlice";
 import { logout } from "../../slices/authSlice";
@@ -54,6 +54,75 @@ const Admin = () => {
   const [partnerId, setPartnerId] = useState("");
   const [passwords, setPasswords] = useState("");
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    // Add dynamic content to the PDF
+    doc.setFont("Arial");
+    doc.setFontSize(14);
+    doc.text("BIG MONEY BUSINESS", 10, 10);
+    doc.text("العقد الإلكتروني", 10, 20);
+
+    doc.setFontSize(12);
+    doc.text(`التاريخ: ${userInfo.createdAt}`, 10, 30);
+    doc.text(`الاسم الكامل للعميل: ${userInfo.nom} ${userInfo.prenom}`, 10, 40);
+    doc.text(`رقم الهاتف المحمول: ${userInfo.tel}`, 10, 50);
+    doc.text(`معلومات الحساب: ${userInfo._id}`, 10, 60);
+    doc.text(`اسم الحساب: ${userInfo.pseudo}`, 10, 70);
+    doc.text(`المبلغ المدفوع: 43$+الرسوم`, 10, 80);
+    doc.text("المنتج: حساب متجر إلكتروني", 10, 90);
+
+    doc.setFontSize(11);
+    doc.text(
+      "لقد قمت بتأكيد عملية الشراء المذكورة أعلاه. وتؤكد اشتراكك في خطة التسويق الخاصة بنا،",
+      10,
+      100
+    );
+    doc.text(
+      "والتي تمنحك عمولات وفقًا للجدول الخاص بك. الجميع استثمارات فريقك وسيكون الدفع وفقًا لشريحتك",
+      10,
+      110
+    );
+    doc.text(
+      "كما أوضحنا في شروط الخدمة الخاصة بنا ولهذا نوفر لك حسابا لإدارة عملك ومعرفة عدد فريقك وفقًا للخطة التي انضممت إليها.",
+      10,
+      120
+    );
+
+    doc.setFontSize(12);
+    doc.text("يرجى الملاحظة:", 10, 130);
+    doc.setFontSize(11);
+    doc.text(
+      "1. نحن لا نعدك بأي دخل ولكن نعدك بإطلاق دفعتك دائما كما شرحنا في الخطة التي اشتركت فيها.",
+      10,
+      140
+    );
+    doc.text(
+      "2. سيتم القاء جميع المحاضرات المذكورة في دورات التدريب عبر تطبيق زوم أو تكون حضورياً.",
+      10,
+      150
+    );
+    doc.text(
+      "3. المبلغ المذكور أعلاه لا يدخل ضمن الرسوم الجمركية ويتم تعديله وفقاً لأحكام كل بلد.",
+      10,
+      160
+    );
+    doc.text(
+      "4. إذا لم تجد روابط الدورات أو لم تتمكن من الحضور الدورات التدريب أو دورات الاستثمار اتصل بالشركة مباشرة.",
+      10,
+      170
+    );
+
+    doc.setFontSize(12);
+    doc.text(
+      "نحن سعداء باختيارك لـ BIG MONEY BUSINESS وفريقنا جاهز دائماً لخدمتك.",
+      10,
+      180
+    );
+
+    // Save the PDF
+    doc.save("contract_preview.pdf");
+  };
   // Toggle functions for popups
   const toggleFormPopup = () => {
     // Reset the form to empty when opening the registration form
@@ -347,8 +416,68 @@ const Admin = () => {
       {isContractPopupOpen && (
         <div className="popup">
           <div className="popup-content">
-            <h2>العقد الإلكتروني</h2>
-            <p>محتوى العقد الإلكتروني هنا.</p>
+            <h2>BIG MONEY BUSINESS</h2>
+            <h4>العقد الإلكتروني</h4>
+            <ul className="contract-details">
+              <li>
+                <strong>التاريخ:</strong> {userInfo.createdAt}
+              </li>
+              <li>
+                <strong>الاسم الكامل للعميل:</strong> {userInfo.nom}{" "}
+                {userInfo.prenom}
+              </li>
+              <li>
+                <strong>رقم الهاتف المحمول:</strong> {userInfo.tel}
+              </li>
+              <li>
+                <strong>معلومات الحساب:</strong> {userInfo._id}
+              </li>
+              <li>
+                <strong>اسم الحساب:</strong> {userInfo.pseudo}
+              </li>
+              <li>
+                <strong>المبلغ المدفوع:</strong> 43$+الرسوم
+              </li>
+              <li>
+                <strong>المنتج:</strong> حساب متجر إلكتروني
+              </li>
+            </ul>
+            <p className="contract-text">
+              BIG MONEY BUSINESS <br />
+              لقد قمت بتأكيد عملية الشراء المذكورة أعلاه. وتؤكد اشتراكك في خطة
+              التسويق الخاصة بنا، والتي تمنحك عمولات وفقًا للجدول الخاص بك.
+              الجميع استثمارات فريقك وسيكون الدفع وفقًا لشريحتك كما أوضحنا في
+              شروط الخدمة الخاصة بنا ولهذا نوفر لك حسابا لإدارة عملك ومعرفة عدد
+              فريقك وفقًا للخطة التي انضممت إليها.
+            </p>
+            <p className="contract-text">
+              <strong>يرجى الملاحظة:</strong>
+              <ol>
+                <li>
+                  نحن لا نعدك بأي دخل ولكن نعدك بإطلاق دفعتك دائما كما شرحنا في
+                  الخطة التي اشتركت فيها.
+                </li>
+                <li>
+                  سيتم القاء جميع المحاضرات المذكورة في دورات التدريب عبر تطبيق
+                  زوم أو تكون حضورياً في بعض الأحيان.
+                </li>
+                <li>
+                  المبلغ المذكور أعلاه لا يدخل ضمن الرسوم الجمركية ويتم تعديله
+                  وفقاً لأحكام كل بلد.
+                </li>
+                <li>
+                  إذا لم تجد روابط الدورات أو لم تتمكن من الحضور الدورات التدريب
+                  أو دورات الاستثمار اتصل بالشركة مباشرة.
+                </li>
+              </ol>
+            </p>
+            <p className="contract-text">
+              نحن سعداء باختيارك لـ BIG MONEY BUSINESS وفريقنا جاهز دائما لخدمتك
+              بالطريقة التي تجعل عملك أسهل ومريحًا.
+            </p>
+            <button className="download-btn" onClick={downloadPDF}>
+              تحميل PDF
+            </button>
             <button className="close-btn" onClick={toggleContractPopup}>
               إغلاق
             </button>
