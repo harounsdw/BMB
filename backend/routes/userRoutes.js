@@ -7,25 +7,21 @@ import {
   updateUserProfile,
   updateTotalIncome,
   transferPoints,
-  getNotifications, // Import the new controller function
+  getNotifications,
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", registerUser);
+router.post("/", protect, registerUser);
 router.post("/auth", authUser);
 router.post("/logout", logoutUser);
-
 router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 
 router.put("/transfer-points", transferPoints);
-router.put("/total", protect, updateTotalIncome);
-
-// New route for fetching notifications
 router.get("/notifications", protect, getNotifications);
-
+router.put("/total", protect, updateTotalIncome);
 export default router;
