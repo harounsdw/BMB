@@ -191,7 +191,16 @@ const updateTotalIncome = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+const getNotifications = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id); // `req.user` is available due to `protect` middleware
 
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({ notifications: user.notifications });
+});
 const transferPoints = async (req, res) => {
   try {
     const {
@@ -202,32 +211,32 @@ const transferPoints = async (req, res) => {
       password,
     } = req.body;
 
-    // Find the sender by pseudo and the recipient by ID
     const sender = await User.findOne({ pseudo: senderPseudo });
-    const recipient = await User.findById(recipientId); // Ensure recipientId is correctly passed
+    const recipient = await User.findById(recipientId);
 
     if (!sender || !recipient) {
       return res.status(404).json({ message: "Sender or recipient not found" });
     }
 
-    // Confirm the sender's password before proceeding
     const isPasswordMatch = await sender.matchPassword(password);
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    // Check if the sender has enough points to transfer
     if (sender.points < pointsToSending) {
       return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 
-    // Update points for sender and recipient
     sender.points -= pointsToTransfer;
     recipient.points += pointsToTransfer;
     sender.pointstosend -= pointsToSending;
     recipient.pointstosend += pointsToSending;
 
-    // Save both users
+    // Add notification to recipient
+    recipient.notifications.push({
+      message: `${senderPseudo} أرسل إليك ${pointsToTransfer} نقطة.`,
+    });
+
     await sender.save();
     await recipient.save();
 
@@ -297,5 +306,6 @@ export {
   getUserProfile,
   updateUserProfile,
   updateTotalIncome,
+  getNotifications,
   transferPoints,
 };

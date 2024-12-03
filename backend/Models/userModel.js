@@ -51,6 +51,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: true,
     },
+    notifications: [
+      {
+        message: String,
+        date: { type: Date, default: Date.now },
+        isRead: { type: Boolean, default: false },
+      },
+    ],
     role: { type: String, default: "user" },
     lastLogin: {
       type: Date,

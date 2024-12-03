@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import jsPDF from "jspdf";
+import logoUrl from "../images/logoth.jpeg";
+import "../../fonts/Amiri-Italic-italic.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/usersapiSlice";
 import { logout } from "../../slices/authSlice";
@@ -31,7 +33,8 @@ const Admin = () => {
   const [points, setPoints] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   // Redux state
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -57,9 +60,17 @@ const Admin = () => {
   const downloadPDF = () => {
     const doc = new jsPDF();
 
-    // Add dynamic content to the PDF
-    doc.setFont("Arial");
+    doc.addFont("Amiri-Italic-italic.ttf", "Amiri", "normal"); // Ensure the font name matches your converted file
+    doc.setFont("Amiri"); // Use the custom font
     doc.setFontSize(14);
+
+    // Add image at the top (centered or aligned as needed)
+    const imgWidth = 50; // Adjust the width of the image
+    const imgHeight = 20; // Adjust the height of the image
+    const pageWidth = doc.internal.pageSize.width; // Get page width for centering
+    const xPos = (pageWidth - imgWidth) / 2; // Center the image horizontally
+    doc.addImage(logoUrl, "JPEG", xPos, 10, imgWidth, imgHeight);
+
     doc.text("BIG MONEY BUSINESS", 10, 10);
     doc.text("العقد الإلكتروني", 10, 20);
 
@@ -119,11 +130,74 @@ const Admin = () => {
       10,
       180
     );
-
+    doc.setFontSize(12);
+    doc.text("توقيع العميل:", 10, 200);
+    doc.setFontSize(12);
+    doc.text(
+      "(هذه الوثيقة تم انشاؤها تلقائيا ولاتطلب توقيعاً من BMB)",
+      10,
+      230
+    );
     // Save the PDF
     doc.save("contract_preview.pdf");
   };
+  const markNotificationsAsRead = async () => {
+    try {
+      const response = await fetch(
+        "https://bmb-76h1.onrender.com/api/users/mark-notifications-read",
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        setUnreadCount(0);
+        // Optionally fetch notifications again to update the state
+      }
+    } catch (error) {
+      console.error("Error marking notifications as read:", error);
+    }
+  };
+
+  // Call this function when opening the notifications popup
+  useEffect(() => {
+    if (isNotificationVisible) {
+      markNotificationsAsRead();
+    }
+  }, [isNotificationVisible]);
+
   // Toggle functions for popups
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch(
+          "https://bmb-76h1.onrender.com/api/users/notifications",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch notifications");
+        }
+
+        const data = await response.json();
+        setNotifications(data.notifications);
+
+        // Count unread notifications
+        const unread = data.notifications.filter(
+          (notif) => !notif.isRead
+        ).length;
+        setUnreadCount(unread);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
   const toggleFormPopup = () => {
     // Reset the form to empty when opening the registration form
     if (!isFormPopupVisible) {
@@ -321,8 +395,9 @@ const Admin = () => {
       {/* Button Grid */}
       <div className="button-grid">
         <button className="open-notification-btn" onClick={toggleNotification}>
-          عرض الإشعارات
+          عرض الإشعارات {unreadCount > 0 && `(${unreadCount})`}
         </button>
+
         <button className="open-popup-btn" onClick={toggleFormPopup}>
           فتح استمارة التسجيل
         </button>
@@ -402,7 +477,19 @@ const Admin = () => {
       {isNotificationVisible && (
         <div className="notification-popup">
           <div className="notification-content">
-            <p>الإشعارات</p>
+            <h3>الإشعارات</h3>
+            {notifications.length === 0 ? (
+              <p>لا توجد إشعارات جديدة</p>
+            ) : (
+              <ul>
+                {notifications.map((notif, index) => (
+                  <li key={index}>
+                    {notif.message} -{" "}
+                    {new Date(notif.date).toLocaleDateString()}
+                  </li>
+                ))}
+              </ul>
+            )}
             <button
               className="close-notification-btn"
               onClick={toggleNotification}
@@ -412,6 +499,7 @@ const Admin = () => {
           </div>
         </div>
       )}
+
       {/* Contract Popup */}
       {isContractPopupOpen && (
         <div className="popup">
@@ -427,7 +515,7 @@ const Admin = () => {
                 {userInfo.prenom}
               </li>
               <li>
-                <strong>رقم الهاتف المحمول:</strong> {userInfo.tel}
+                <strong>رقم ألهوية:</strong> {userInfo.cin}
               </li>
               <li>
                 <strong>معلومات الحساب:</strong> {userInfo._id}
@@ -475,6 +563,11 @@ const Admin = () => {
               نحن سعداء باختيارك لـ BIG MONEY BUSINESS وفريقنا جاهز دائما لخدمتك
               بالطريقة التي تجعل عملك أسهل ومريحًا.
             </p>
+            <p className="contract-text">توقيع العميل: </p>
+            <p className="contract-text">
+              (هذه الوثيقة تم انشاؤها تلقائيا ولاتطلب توقيعاً من BMB)
+            </p>
+            <img src={logoUrl} alt="Logo" className="logo-s" />
             <button className="download-btn" onClick={downloadPDF}>
               تحميل PDF
             </button>
