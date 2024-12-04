@@ -83,6 +83,7 @@ const authUser = asyncHandler(async (req, res) => {
       previousLastLogin: formattedPreviousLastLogin,
       createdByUserCount,
       secondGenUserCount,
+      notifications: [],
       thirdGenUserCount,
       fourthGenUserCount,
       fifthGenUserCount, // Fifth-generation count
