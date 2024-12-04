@@ -95,7 +95,30 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { nom, prenom, cin, email, password, pseudo, tel } = req.body;
+  const { nom, prenom, cin, email, password, pseudo, tel, createdBy } =
+    req.body;
+
+  // Fetch the connected user (who is creating the new account)
+  const connectedUser = req.user;
+
+  if (!connectedUser) {
+    res.status(401);
+    throw new Error("المستخدم غير موجود");
+  }
+
+  // Allow only users with the role "user" to send points to the admin
+  if (connectedUser.role !== "user") {
+    res.status(403);
+    throw new Error("فقط المستخدمون يمكنهم إرسال النقاط إلى المشرف.");
+  }
+
+  // Ensure the connected user has at least 150 points
+  if (connectedUser.pointstosend < 150) {
+    res.status(403);
+    throw new Error(
+      "لا يمكنك إنشاء حساب جديد. يجب أن يكون لديك على الأقل 150 نقطة."
+    );
+  }
 
   // Check if the user already exists
   const userExists = await User.findOne({ email });
@@ -116,6 +139,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     pseudo,
+    createdBy,
     tel,
     points: 0, // New users start with 0 points
     role: userRole,
@@ -123,7 +147,15 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // Generate a token and return the user details
+    // Find the admin and transfer 150 points from the user to the admin
+    const adminUser = await User.findOne({ role: "admin" });
+    if (adminUser) {
+      connectedUser.pointstosend -= 150; // Deduct 150 points from the user
+      adminUser.pointstosend += 150; // Add 150 points to the admin
+      await connectedUser.save();
+      await adminUser.save();
+    }
+
     generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
@@ -132,6 +164,7 @@ const registerUser = asyncHandler(async (req, res) => {
       cin: user.cin,
       email: user.email,
       pseudo: user.pseudo,
+      createdBy: user.createdBy,
       tel: user.tel,
       points: user.points,
       role: user.role,

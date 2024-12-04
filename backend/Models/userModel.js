@@ -33,6 +33,7 @@ const userSchema = mongoose.Schema(
     },
     createdBy: {
       type: String,
+      required: true,
     },
     points: {
       type: Number,
