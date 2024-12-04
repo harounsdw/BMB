@@ -143,6 +143,7 @@ const registerUser = asyncHandler(async (req, res) => {
     tel,
     points: 0, // New users start with 0 points
     role: userRole,
+    notifications: [],
   });
 
   if (user) {
