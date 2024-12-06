@@ -102,14 +102,19 @@ const registerUser = asyncHandler(async (req, res) => {
   // Fetch the connected user (who is creating the new account)
   const connectedUser = req.user;
 
+  if (!connectedUser) {
+    res.status(401);
+    throw new Error("المستخدم غير موجود");
+  }
+
   // Allow only users with the role "user" to send points to the admin
-  if (connectedUser.role !== "admin") {
+  if (connectedUser.role !== "user") {
     res.status(403);
     throw new Error("فقط المستخدمون يمكنهم إرسال النقاط إلى المشرف.");
   }
 
   // Ensure the connected user has at least 150 points
-  if (connectedUser.pointstosend > 150) {
+  if (connectedUser.pointstosend < 150) {
     res.status(403);
     throw new Error(
       "لا يمكنك إنشاء حساب جديد. يجب أن يكون لديك على الأقل 150 نقطة."
