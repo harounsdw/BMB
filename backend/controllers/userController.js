@@ -102,11 +102,6 @@ const registerUser = asyncHandler(async (req, res) => {
   // Fetch the connected user (who is creating the new account)
   const connectedUser = req.user;
 
-  if (!connectedUser) {
-    res.status(401);
-    throw new Error("المستخدم غير موجود");
-  }
-
   // Allow only users with the role "user" to send points to the admin
   if (connectedUser.role !== "user") {
     res.status(403);
