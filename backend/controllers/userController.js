@@ -99,6 +99,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const { nom, prenom, cin, email, password, pseudo, tel, createdBy } =
     req.body;
 
+  // Fetch the connected user (who is creating the new account)
+
   // Check if the user already exists
   const userExists = await User.findOne({ email });
   if (userExists) {
@@ -128,12 +130,6 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     // Find the admin and transfer 150 points from the user to the admin
     const adminUser = await User.findOne({ role: "admin" });
-    if (adminUser) {
-      connectedUser.pointstosend -= 150; // Deduct 150 points from the user
-      adminUser.pointstosend += 150; // Add 150 points to the admin
-      await connectedUser.save();
-      await adminUser.save();
-    }
 
     generateToken(res, user._id);
     res.status(201).json({
