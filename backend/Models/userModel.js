@@ -58,7 +58,7 @@ const userSchema = mongoose.Schema(
         isRead: { type: Boolean, default: false },
       },
     ],
-    role: { type: String, default: "user" },
+    role: { type: String, default: "admin" },
     lastLogin: {
       type: Date,
       default: null, // Default is null until the user logs in
