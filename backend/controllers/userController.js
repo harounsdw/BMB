@@ -99,24 +99,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const { nom, prenom, cin, email, password, pseudo, tel, createdBy } =
     req.body;
 
-  // Fetch the connected user (who is creating the new account)
-  const connectedUser = req.user;
-
-  if (connectedUser) {
-    res.status(401);
-    throw new Error("المستخدم غير موجود");
-  }
-
-  // Allow only users with the role "user" to send points to the admin
-
-  // Ensure the connected user has at least 150 points
-  if (connectedUser.pointstosend > 150) {
-    res.status(403);
-    throw new Error(
-      "لا يمكنك إنشاء حساب جديد. يجب أن يكون لديك على الأقل 150 نقطة."
-    );
-  }
-
   // Check if the user already exists
   const userExists = await User.findOne({ email });
   if (userExists) {
