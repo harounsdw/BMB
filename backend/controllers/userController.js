@@ -108,10 +108,6 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Allow only users with the role "user" to send points to the admin
-  if (connectedUser.role !== "user") {
-    res.status(403);
-    throw new Error("فقط المستخدمون يمكنهم إرسال النقاط إلى المشرف.");
-  }
 
   // Ensure the connected user has at least 150 points
   if (connectedUser.pointstosend < 150) {
