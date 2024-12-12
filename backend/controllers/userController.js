@@ -102,7 +102,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // Fetch the connected user (who is creating the new account)
   const connectedUser = req.user;
 
-  if (!connectedUser) {
+  if (connectedUser) {
     res.status(401);
     throw new Error("المستخدم غير موجود");
   }
