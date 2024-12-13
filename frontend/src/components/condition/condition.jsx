@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./condition.scss";
 const Condition = () => {
   return (
     <div style={{ padding: "20px", lineHeight: "1.6" }}>
