@@ -64,7 +64,14 @@ const Connexion = () => {
         </div>
       </div>
       <div className="footer">
-        <button>شروط الخدمة</button>
+        <button>
+          <Link
+            to="/condition"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            شروط الخدمة
+          </Link>
+        </button>
         <button>قصتنا</button>
         <button>رؤيتنا</button>
       </div>

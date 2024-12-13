@@ -4,6 +4,7 @@ import store from "./store.js";
 import { Provider } from "react-redux";
 import Connexion from "./components/connexion/connexion.jsx";
 import Admin from "./components/admin/admin.jsx";
+import Condition from "./components/condition/condition.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Connexion />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/condition" element={<Condition />} />
     </Route>
   )
 );
