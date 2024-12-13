@@ -69,7 +69,7 @@ const Connexion = () => {
             to="/Condition"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            شوط الخدمة
+            شروط الخدمة
           </Link>
         </button>
         <button>قصتنا</button>
