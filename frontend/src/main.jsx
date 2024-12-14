@@ -4,6 +4,7 @@ import store from "./store.js";
 import { Provider } from "react-redux";
 import Connexion from "./components/connexion/connexion.jsx";
 import Admin from "./components/admin/admin.jsx";
+import Formation from "./components/formation/formation.jsx";
 import Condition from "./components/condition/condition.jsx";
 import {
   createBrowserRouter,
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Connexion />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/condition" element={<Condition />} />
+      <Route path="/formation" element={<Formation />} />
     </Route>
   )
 );

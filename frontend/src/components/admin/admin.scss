@@ -337,7 +337,14 @@
   cursor: pointer;
   margin-right: 35px; /* Ensure proper spacing between buttons */
 }
-
+.secondary-p-profits-btn {
+  background-color: #4caf50; /* Adjust color as needed */
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .ranc-btn {
   background-color: #ff5722; /* Adjust color as needed */
   color: white;

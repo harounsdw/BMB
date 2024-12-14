@@ -422,10 +422,7 @@ const Admin = () => {
         <div className="balance-popup">
           <div className="balance-popup-content">
             <h3>التحقق من الرصيد</h3>
-            <p>
-              {totalIncome + userInfo.pointstosend + userInfo.allpoints} دينار
-              تونسي
-            </p>
+            <p>{userInfo.pointstosend} دينار تونسي</p>
             <form onSubmit={handleSubmit}>
               <input
                 type="number"
@@ -834,6 +831,15 @@ const Admin = () => {
       {/* New Buttons */}
       <div className="new-buttons-container">
         <button className="secondary-rank-profits-btn">العروض :</button>
+        <button className="secondary-p-profits-btn">
+          {" "}
+          <Link
+            to="/Formation"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            دورة الإستثمار
+          </Link>
+        </button>
         <button className="ranc-btn">RANC:PARTNER </button>
       </div>
 

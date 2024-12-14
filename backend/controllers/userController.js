@@ -71,6 +71,8 @@ const authUser = asyncHandler(async (req, res) => {
       nom: user.nom,
       prenom: user.prenom,
       pseudo: user.pseudo,
+      cin: user.cin,
+
       email: user.email,
       tel: user.tel,
       points: user.points,

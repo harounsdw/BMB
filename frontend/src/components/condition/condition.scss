@@ -1,81 +1,68 @@
-$primary-color: #2c3e50; // Main background color
-$secondary-color: #18bc9c; // Accent color for headings
-$text-color: #ecf0f1; // Text color
-$highlight-color: #f39c12; // Highlight color for animations
-$shadow-color: rgba(0, 0, 0, 0.2); // Box shadow color
+/* condition.scss */
 
-// Animation for text fade-in
+$primary-color: #4a90e2; /* Primary color for title and accents */
+$secondary-color: #2c3e50; /* Secondary color for text */
+$background-color: #f7f9fc; /* Light background for contrast */
+$heading-font: "Poppins", sans-serif;
+$text-font: "Roboto", sans-serif;
+
+.con {
+  font-family: $heading-font;
+  color: $primary-color;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  text-transform: uppercase;
+
+  &::after {
+    content: "";
+    width: 60px;
+    height: 4px;
+    background-color: $primary-color;
+    display: block;
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+}
+
+.con-p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: justify;
+  margin-bottom: 20px;
+
+  strong {
+    color: $primary-color;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  div {
+    padding: 15px;
+  }
+
+  .con {
+    font-size: 2rem;
+  }
+
+  .con-p {
+    font-size: 1rem;
+  }
+}
+
+/* Animations */
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-// Page container styling
-.page-container {
-  padding: 2rem;
-  background-color: $primary-color;
-  color: $text-color;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px $shadow-color;
-  animation: fadeIn 1.5s ease-in-out;
-}
-
-// Title styling
-.page-title {
-  font-size: 2.5rem;
-  color: $secondary-color;
-  margin-bottom: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 2px solid $secondary-color;
-  animation: fadeIn 1s ease-in;
-}
-
-// Paragraph styling
-.page-content {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: $text-color;
-  margin-bottom: 2rem;
-  animation: fadeIn 1s ease-in 0.5s;
-  text-align: justify;
-
-  // Nested animations for highlights
-  span.highlight {
-    color: $highlight-color;
-    font-weight: bold;
-    animation: fadeIn 1.5s ease-in-out infinite alternate;
-  }
-}
-
-// Button styling
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-
-  button {
-    padding: 0.75rem 2rem;
-    background-color: $secondary-color;
-    color: $text-color;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 1rem;
-    font-weight: bold;
-
-    &:hover {
-      background-color: $highlight-color;
-      box-shadow: 0 4px 12px $shadow-color;
-      transform: translateY(-2px);
-    }
   }
 }
