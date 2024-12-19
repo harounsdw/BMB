@@ -31,15 +31,25 @@
 
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 columns for large screens */
   gap: 10px;
-  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; /* 1 column for mobile screens */
+  }
 }
+
 .button-grid-L {
   position: relative;
+  margin-bottom: 20px;
   padding: 0 20%;
   border-radius: 5%;
 }
+
 .contract-btn {
   position: relative;
   float: left;
@@ -53,6 +63,86 @@
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
+table {
+  position: relative;
+  top: 3vh;
+  width: 100%;
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 20px;
+  color: #ddd;
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+
+  th,
+  td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+    border: none;
+    color: #fff !important;
+    min-width: 80px;
+  }
+
+  th {
+    color: #ddd;
+  }
+
+  .col1 {
+    background-color: #716f6f !important;
+  }
+
+  .col2 {
+    background-color: #6b6b6b !important;
+  }
+
+  .col3 {
+    background-color: #5c5c5c !important;
+  }
+
+  .col4 {
+    background-color: #4d4d4d !important;
+  }
+
+  /* Remove right border for the last column */
+  td:last-child,
+  th:last-child {
+    border-right: none;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    thead {
+      display: none; /* Hide the header row */
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block; /* Stack rows and cells vertically */
+      width: 100%;
+    }
+
+    tr {
+      margin-bottom: 15px; /* Add space between rows */
+      border-bottom: 1px solid #ddd; /* Separate rows visually */
+    }
+
+    td {
+      text-align: left; /* Align text to the left for readability */
+      padding: 10px 5px;
+      position: relative;
+    }
+
+    td::before {
+      content: attr(data-label); /* Use the data-label attribute for labels */
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+  }
+}
+
 .popup {
   position: fixed;
   top: 0;
@@ -280,6 +370,7 @@
 }
 .button-grid-info {
   position: relative;
+  top: 5vh;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -310,6 +401,7 @@
 }
 .btn-outline-success {
   position: relative !important;
+  top: 5%;
   background-color: #28a745 !important;
   background-position: center;
   padding: auto 100px !important;
@@ -317,49 +409,82 @@
 .info-btn:hover {
   filter: brightness(1.1);
 }
-.table-container {
-  position: relative;
+.new-buttons-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 15px; /* Space between buttons */
+  justify-content: center; /* Center-align buttons horizontally */
+  align-items: center; /* Align buttons vertically */
+  margin-top: 5vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 10px; /* Reduce gap for smaller screens */
+  }
 }
 
-.new-buttons-container {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  margin-top: -30%; /* Add space below the buttons */
+button {
+  display: inline-flex;
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+  padding: 15px 30px; /* Adjust padding for better touch targets */
+  border: none;
+  border-radius: 8px; /* Slightly more rounded corners for a modern look */
+  cursor: pointer;
+  font-size: 16px; /* Adjust font size for readability */
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+  }
+
+  &:focus {
+    outline: 2px solid #fff; /* Accessibility focus indicator */
+    outline-offset: 4px;
+  }
 }
 
 .secondary-rank-profits-btn {
-  background-color: #4caf50; /* Adjust color as needed */
+  background-color: #4caf50; /* Green */
   color: white;
-  padding: 20px 40px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 35px; /* Ensure proper spacing between buttons */
-}
-.secondary-p-profits-btn {
-  background-color: #4caf50; /* Adjust color as needed */
-  color: white;
-  padding: 20px 40px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.ranc-btn {
-  background-color: #ff5722; /* Adjust color as needed */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 15px; /* Ensure proper spacing between buttons */
+
+  &:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
 }
 
-/* Additional styling for hover effects, etc. */
-.secondary-rank-profits-btn:hover,
-.ranc-btn:hover {
-  opacity: 0.9;
+.secondary-p-profits-btn {
+  background-color: #2196f3; /* Blue */
+  color: white;
+
+  &:hover {
+    background-color: #1976d2; /* Darker blue on hover */
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold; /* Bold text for links */
+  }
 }
+
+.ranc-btn {
+  background-color: #ff5722; /* Orange */
+  color: white;
+
+  &:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+  }
+}
+
+@media (max-width: 768px) {
+  button {
+    width: 90%; /* Full width buttons on smaller screens */
+    padding: 12px 20px; /* Adjust padding */
+    font-size: 14px; /* Smaller text size */
+  }
+}
+
 .circle-btn {
   width: 40px;
   height: 40px;

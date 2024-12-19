@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import jsPDF from "jspdf";
-import logoUrl from "../images/logoth.jpeg";
+import tmp from "../images/tmp.jpeg";
 import "../../fonts/Amiri-Italic-italic.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/usersapiSlice";
@@ -20,7 +20,6 @@ import { setCredentials } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 import Header from "../Header/Header";
 import "./admin.scss";
-import "../Tableau/tableau.scss";
 const Admin = () => {
   // State for form fields
   const [nom, setNom] = useState("");
@@ -69,7 +68,7 @@ const Admin = () => {
     const imgHeight = 20; // Adjust the height of the image
     const pageWidth = doc.internal.pageSize.width; // Get page width for centering
     const xPos = (pageWidth - imgWidth) / 2; // Center the image horizontally
-    doc.addImage(logoUrl, "JPEG", xPos, 10, imgWidth, imgHeight);
+    doc.addImage(tmp, "JPEG", xPos, 10, imgWidth, imgHeight);
 
     doc.text("BIG MONEY BUSINESS", 10, 10);
     doc.text("العقد الإلكتروني", 10, 20);
@@ -79,56 +78,58 @@ const Admin = () => {
     doc.text(`الاسم الكامل للعميل: ${userInfo.nom} ${userInfo.prenom}`, 10, 40);
     doc.text(`رقم الهاتف المحمول: ${userInfo.tel}`, 10, 50);
     doc.text(`معلومات الحساب: ${userInfo._id}`, 10, 60);
-    doc.text(`اسم الحساب: ${userInfo.pseudo}`, 10, 70);
-    doc.text(`المبلغ المدفوع: 43$+الرسوم`, 10, 80);
-    doc.text("المنتج: حساب متجر إلكتروني", 10, 90);
+    doc.text(` رقم ألهوية: ${userInfo.cin}`, 10, 70);
+
+    doc.text(`اسم الحساب: ${userInfo.pseudo}`, 10, 80);
+    doc.text(`المبلغ المدفوع: 43$+الرسوم`, 10, 90);
+    doc.text("المنتج: حساب متجر إلكتروني", 10, 100);
 
     doc.setFontSize(11);
     doc.text(
       "لقد قمت بتأكيد عملية الشراء المذكورة أعلاه. وتؤكد اشتراكك في خطة التسويق الخاصة بنا،",
       10,
-      100
+      110
     );
     doc.text(
       "والتي تمنحك عمولات وفقًا للجدول الخاص بك. الجميع استثمارات فريقك وسيكون الدفع وفقًا لشريحتك",
       10,
-      110
+      120
     );
     doc.text(
       "كما أوضحنا في شروط الخدمة الخاصة بنا ولهذا نوفر لك حسابا لإدارة عملك ومعرفة عدد فريقك وفقًا للخطة التي انضممت إليها.",
       10,
-      120
+      130
     );
 
     doc.setFontSize(12);
-    doc.text("يرجى الملاحظة:", 10, 130);
+    doc.text("يرجى الملاحظة:", 10, 140);
     doc.setFontSize(11);
     doc.text(
       "1. نحن لا نعدك بأي دخل ولكن نعدك بإطلاق دفعتك دائما كما شرحنا في الخطة التي اشتركت فيها.",
       10,
-      140
+      150
     );
     doc.text(
       "2. سيتم القاء جميع المحاضرات المذكورة في دورات التدريب عبر تطبيق زوم أو تكون حضورياً.",
       10,
-      150
+      160
     );
     doc.text(
       "3. المبلغ المذكور أعلاه لا يدخل ضمن الرسوم الجمركية ويتم تعديله وفقاً لأحكام كل بلد.",
       10,
-      160
+      170
     );
     doc.text(
       "4. إذا لم تجد روابط الدورات أو لم تتمكن من الحضور الدورات التدريب أو دورات الاستثمار اتصل بالشركة مباشرة.",
       10,
-      170
+      180
     );
 
     doc.setFontSize(12);
     doc.text(
       "نحن سعداء باختيارك لـ BIG MONEY BUSINESS وفريقنا جاهز دائماً لخدمتك.",
       10,
-      180
+      190
     );
     doc.setFontSize(12);
     doc.text("توقيع العميل:", 10, 200);
@@ -564,7 +565,7 @@ const Admin = () => {
             <p className="contract-text">
               (هذه الوثيقة تم انشاؤها تلقائيا ولاتطلب توقيعاً من BMB)
             </p>
-            <img src={logoUrl} alt="Logo" className="logo-s" />
+            <img src={tmp} alt="Logo" className="logo-s" />
             <button className="download-btn" onClick={downloadPDF}>
               تحميل PDF
             </button>
@@ -762,30 +763,50 @@ const Admin = () => {
       )}
 
       {/* Table */}
-      <div className="container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th className="col1">
-                <FaUser size={20} color="white" /> &nbsp; الأجيال
-              </th>
-              <th className="col2">
-                <FaUsers size={20} color="white" /> &nbsp; الشركاء
-              </th>
-              <th className="col3">
-                <FaPercent size={20} color="white" /> &nbsp;النسبة
-              </th>
-              <th className="col4">
-                <FaMoneyBill size={20} color="white" /> &nbsp;الأرباح
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items
-              .filter((element) => {
-                // Define the partners count based on the generation
-                const partnersCount =
-                  element.name.trim() === "الجيل الأول"
+      <table className="table">
+        <thead>
+          <tr>
+            <th className="col1">
+              <FaUser size={20} color="white" /> &nbsp; الأجيال
+            </th>
+            <th className="col2">
+              <FaUsers size={20} color="white" /> &nbsp; الشركاء
+            </th>
+            <th className="col3">
+              <FaPercent size={20} color="white" /> &nbsp;النسبة
+            </th>
+            <th className="col4">
+              <FaMoneyBill size={20} color="white" /> &nbsp;الأرباح
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {items
+            .filter((element) => {
+              const partnersCount =
+                element.name.trim() === "الجيل الأول"
+                  ? userInfo?.createdByUserCount
+                  : element.name.trim() === "الجيل الثاني"
+                  ? userInfo?.secondGenUserCount
+                  : element.name.trim() === "الجيل الثالث"
+                  ? userInfo?.thirdGenUserCount
+                  : element.name.trim() === "الجيل الرابع"
+                  ? userInfo?.fourthGenUserCount
+                  : element.name.trim() === "الجيل الخامس"
+                  ? userInfo?.fifthGenUserCount
+                  : element.name.trim() === "الجيل السادس"
+                  ? userInfo?.sixthGenUserCount
+                  : 0;
+
+              return partnersCount > 0;
+            })
+            .map((element) => (
+              <tr key={element.id}>
+                <td className="col1" data-label="الأجيال">
+                  {element.name.trim()}
+                </td>
+                <td className="col2" data-label="الشركاء">
+                  {element.name.trim() === "الجيل الأول"
                     ? userInfo?.createdByUserCount
                     : element.name.trim() === "الجيل الثاني"
                     ? userInfo?.secondGenUserCount
@@ -797,42 +818,23 @@ const Admin = () => {
                     ? userInfo?.fifthGenUserCount
                     : element.name.trim() === "الجيل السادس"
                     ? userInfo?.sixthGenUserCount
-                    : 0;
-
-                // Filter out rows with partnersCount equal to 0
-                return partnersCount > 0;
-              })
-              .map((element) => (
-                <tr key={element.id}>
-                  <td className="col1">{element.name.trim()}</td>
-                  <td className="col2">
-                    {element.name.trim() === "الجيل الأول"
-                      ? userInfo?.createdByUserCount
-                      : element.name.trim() === "الجيل الثاني"
-                      ? userInfo?.secondGenUserCount
-                      : element.name.trim() === "الجيل الثالث"
-                      ? userInfo?.thirdGenUserCount
-                      : element.name.trim() === "الجيل الرابع"
-                      ? userInfo?.fourthGenUserCount
-                      : element.name.trim() === "الجيل الخامس"
-                      ? userInfo?.fifthGenUserCount
-                      : element.name.trim() === "الجيل السادس"
-                      ? userInfo?.sixthGenUserCount
-                      : ""}
-                  </td>
-                  <td className="col3">{element.percent}</td>
-                  <td className="col4">{element.wallet}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+                    : ""}
+                </td>
+                <td className="col3" data-label="النسبة">
+                  {element.percent}
+                </td>
+                <td className="col4" data-label="الأرباح">
+                  {element.wallet}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
 
       {/* New Buttons */}
       <div className="new-buttons-container">
         <button className="secondary-rank-profits-btn">العروض :</button>
         <button className="secondary-p-profits-btn">
-          {" "}
           <Link
             to="/Formation"
             style={{ textDecoration: "none", color: "inherit" }}
@@ -853,7 +855,7 @@ const Admin = () => {
               </span>
             </button>
             <h1>
-              تاريخ اخر دخول:{" "}
+              تاريخ اخر دخول:
               {userInfo.previousLastLogin || "لا يوجد تسجيل دخول سابق"}
             </h1>
             <br></br>

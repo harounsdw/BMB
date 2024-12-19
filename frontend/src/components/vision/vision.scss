@@ -1,0 +1,43 @@
+.vision-page {
+  text-align: center;
+  font-family: "Arial, sans-serif";
+  color: #333;
+  background-color: #f8f8f8;
+  padding: 20px;
+
+  .vision-header {
+    margin-top: 20px;
+
+    h1 {
+      color: #ffc107; // Gold color for the header
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+  }
+
+  .vision-content {
+    margin-top: 40px;
+
+    .vision-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      color: #e91e63; // Pink color for the subheading
+      margin: 20px 0;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+  }
+}

@@ -73,7 +73,14 @@ const Connexion = () => {
           </Link>
         </button>
         <button>قصتنا</button>
-        <button>رؤيتنا</button>
+        <button>
+          <Link
+            to="/Vision"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            رؤيتنا
+          </Link>
+        </button>
       </div>
     </div>
   );
