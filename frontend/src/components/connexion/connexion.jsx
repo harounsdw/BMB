@@ -72,7 +72,14 @@ const Connexion = () => {
             شروط الخدمة
           </Link>
         </button>
-        <button>قصتنا</button>
+        <button>
+          <Link
+            to="/About"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            قصتنا
+          </Link>
+        </button>
         <button>
           <Link
             to="/Vision"

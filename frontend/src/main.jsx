@@ -7,6 +7,7 @@ import Admin from "./components/admin/admin.jsx";
 import Formation from "./components/formation/formation.jsx";
 import Condition from "./components/condition/condition.jsx";
 import Vision from "./components/vision/vision.jsx";
+import About from "./components/about/about.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/condition" element={<Condition />} />
       <Route path="/formation" element={<Formation />} />
       <Route path="/vision" element={<Vision />} />
+      <Route path="/about" element={<About />} />
     </Route>
   )
 );
