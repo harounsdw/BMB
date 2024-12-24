@@ -45,10 +45,12 @@
     }
   }
   .slider {
-    margin-top: 10px;
+    margin: auto;
+    top: 10px;
     display: block;
     position: relative;
     .logo {
+      margin: auto;
       width: 300px;
       height: auto;
     }

@@ -227,7 +227,7 @@ const transferPoints = async (req, res) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    if (sender.points < pointsToSending) {
+    if (sender.points > pointsToSending) {
       return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 

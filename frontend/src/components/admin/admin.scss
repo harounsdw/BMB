@@ -66,21 +66,22 @@
 table {
   position: relative;
   top: 3vh;
+  gap: 10px;
   width: 100%;
-  margin: auto;
-  border-collapse: separate;
-  border-spacing: 20px;
+  margin: auto; /* Centers the table horizontally */
+  border-collapse: separate; /* Use separate borders for spacing */
+  border-spacing: 20px; /* Adds space between columns */
   color: #ddd;
-  overflow-x: auto; /* Enable horizontal scrolling for small screens */
 
   th,
   td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 8px;
-    border: none;
+    text-align: center; /* Centers the text horizontally */
+    vertical-align: middle; /* Centers the text vertically */
+    padding: 8px; /* Reduces padding to minimize column width */
+    border: none; /* Remove existing borders */
     color: #fff !important;
-    min-width: 80px;
+    min-width: 80px; /* Set a minimum width for columns if needed */
+    position: relative; /* To position pseudo-element for vertical border */
   }
 
   th {
@@ -89,57 +90,28 @@ table {
 
   .col1 {
     background-color: #716f6f !important;
+    border-right: 20px solid #fff; /* White vertical border */
   }
 
   .col2 {
     background-color: #6b6b6b !important;
+    border-right: 20px solid #fff; /* White vertical border */
   }
 
   .col3 {
     background-color: #5c5c5c !important;
+    border-right: 20px solid #fff; /* White vertical border */
   }
 
   .col4 {
     background-color: #4d4d4d !important;
+    border-right: 20px solid #fff; /* White vertical border */
   }
 
   /* Remove right border for the last column */
   td:last-child,
   th:last-child {
-    border-right: none;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    thead {
-      display: none; /* Hide the header row */
-    }
-
-    tbody,
-    tr,
-    td {
-      display: block; /* Stack rows and cells vertically */
-      width: 100%;
-    }
-
-    tr {
-      margin-bottom: 15px; /* Add space between rows */
-      border-bottom: 1px solid #ddd; /* Separate rows visually */
-    }
-
-    td {
-      text-align: left; /* Align text to the left for readability */
-      padding: 10px 5px;
-      position: relative;
-    }
-
-    td::before {
-      content: attr(data-label); /* Use the data-label attribute for labels */
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-      color: #fff;
-    }
+    border-right: 20px solid #fff;
   }
 }
 
@@ -370,16 +342,23 @@ table {
 }
 .button-grid-info {
   position: relative;
-  top: 5vh;
+  top: 1.5vh;
   display: flex;
   justify-content: space-around;
   width: 100%;
+  flex-wrap: wrap; // Allow buttons to wrap on smaller screens
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Stack the buttons vertically on smaller screens
+    align-items: center;
+    gap: 20px; // Add spacing between buttons
+  }
 }
 
 .info-btn {
   position: relative;
-  width: 100px; // Set fixed width for the circle
-  height: 100px; // Set fixed height for the circle
+  width: 120px; // Adjust width for better responsiveness
+  height: 120px; // Adjust height
   border-radius: 50%; // Make it a circle
   color: white;
   cursor: pointer;
@@ -390,6 +369,12 @@ table {
   justify-content: center; // Center content horizontally
   text-align: center;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 100px; // Smaller width for mobile devices
+    height: 100px; // Smaller height
+    font-size: 12px; // Adjust font size for readability
+  }
 }
 
 .info-btn-registration {
@@ -399,16 +384,64 @@ table {
 .info-btn-income {
   background-color: #8d7e50; /* Yellow */
 }
-.btn-outline-success {
-  position: relative !important;
-  top: 5%;
-  background-color: #28a745 !important;
-  background-position: center;
-  padding: auto 100px !important;
-}
+
 .info-btn:hover {
   filter: brightness(1.1);
 }
+
+h1 {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+.btn-outline-success {
+  position: relative;
+  top: 2%; // Adjusted to move it slightly downward
+  background-color: #28a745 !important; // Green background
+  color: white; // White text for better contrast
+  padding: 10px 20px; // Add proper padding for better appearance
+  font-size: 16px; // Set an appropriate font size
+  font-weight: bold;
+  border: 2px solid #28a745; // Add a border for a sleek look
+  border-radius: 30px; // Rounded button
+  display: flex;
+  align-items: center; // Center icon and text vertically
+  justify-content: center; // Center icon and text horizontally
+  gap: 10px; // Space between text and icon
+  cursor: pointer;
+  transition: all 0.3s ease; // Smooth animation for hover effects
+
+  &:hover {
+    background-color: #218838; // Darker green on hover
+    color: #ffffff; // Ensure text remains white
+    transform: translateY(-5px); // Slight upward movement on hover
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); // Add shadow for depth
+  }
+
+  &:active {
+    transform: translateY(0); // Reset position on click
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // Subtle shadow
+  }
+
+  @media (max-width: 768px) {
+    top: 5% !important;
+    font-size: 14px; // Adjust font size for smaller screens
+    padding: 8px 15px; // Reduce padding for smaller buttons
+    border-radius: 25px; // Adjust border radius for smaller screens
+    gap: 5px; // Reduce spacing between text and icon
+  }
+}
+
+.br {
+  @media (max-width: 768px) {
+    display: none; // Remove line breaks for mobile if needed
+  }
+}
+
 .new-buttons-container {
   display: flex;
   flex-wrap: wrap; /* Allow wrapping on smaller screens */

@@ -783,6 +783,7 @@ const Admin = () => {
         <tbody>
           {items
             .filter((element) => {
+              // Define the partners count based on the generation
               const partnersCount =
                 element.name.trim() === "الجيل الأول"
                   ? userInfo?.createdByUserCount
@@ -798,14 +799,13 @@ const Admin = () => {
                   ? userInfo?.sixthGenUserCount
                   : 0;
 
+              // Filter out rows with partnersCount equal to 0
               return partnersCount > 0;
             })
             .map((element) => (
               <tr key={element.id}>
-                <td className="col1" data-label="الأجيال">
-                  {element.name.trim()}
-                </td>
-                <td className="col2" data-label="الشركاء">
+                <td className="col1">{element.name.trim()}</td>
+                <td className="col2">
                   {element.name.trim() === "الجيل الأول"
                     ? userInfo?.createdByUserCount
                     : element.name.trim() === "الجيل الثاني"
@@ -820,12 +820,8 @@ const Admin = () => {
                     ? userInfo?.sixthGenUserCount
                     : ""}
                 </td>
-                <td className="col3" data-label="النسبة">
-                  {element.percent}
-                </td>
-                <td className="col4" data-label="الأرباح">
-                  {element.wallet}
-                </td>
+                <td className="col3">{element.percent}</td>
+                <td className="col4">{element.wallet}</td>
               </tr>
             ))}
         </tbody>
