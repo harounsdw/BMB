@@ -411,13 +411,20 @@ const Admin = () => {
       </div>
       <Header />
       <div className="button-grid-L">
-        <button className="upshop-btn" onClick={toggleupshopPopup}>
+        <button
+          className="btn-responsive upshop-btn"
+          onClick={toggleupshopPopup}
+        >
           تحديث المتجر
         </button>
-        <button className="contract-btn" onClick={toggleContractPopup}>
+        <button
+          className="btn-responsive contract-btn"
+          onClick={toggleContractPopup}
+        >
           العقد الإلكتروني
         </button>
       </div>
+
       {/* Balance Popup */}
       {isBalancePopupVisible && (
         <div className="balance-popup">

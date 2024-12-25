@@ -215,6 +215,7 @@ const transferPoints = async (req, res) => {
       password,
     } = req.body;
 
+    // Find sender and recipient
     const sender = await User.findOne({ pseudo: senderPseudo });
     const recipient = await User.findById(recipientId);
 
@@ -222,28 +223,43 @@ const transferPoints = async (req, res) => {
       return res.status(404).json({ message: "Sender or recipient not found" });
     }
 
+    // Verify password
     const isPasswordMatch = await sender.matchPassword(password);
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    if (sender.points > pointsToSending) {
+    // Check if sender has enough points
+    if (sender.points < pointsToTransfer) {
       return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
     }
 
+    // Deduct and add points
     sender.points -= pointsToTransfer;
     recipient.points += pointsToTransfer;
     sender.pointstosend -= pointsToSending;
     recipient.pointstosend += pointsToSending;
 
-    // Add notification to recipient
+    // Add notifications
     recipient.notifications.push({
       message: `${senderPseudo} أرسل إليك ${pointsToTransfer} نقطة.`,
+      date: new Date(),
+      isRead: false,
     });
 
+    sender.notifications.push({
+      message: `لقد أرسلت ${pointsToTransfer} نقطة إلى ${
+        recipient.pseudo || "a user"
+      }.`,
+      date: new Date(),
+      isRead: false,
+    });
+
+    // Save both users
     await sender.save();
     await recipient.save();
 
+    // Respond with success
     res.status(200).json({ message: "Points transferred successfully" });
   } catch (error) {
     console.error("Error transferring points:", error);

@@ -44,25 +44,47 @@
 }
 
 .button-grid-L {
-  position: relative;
+  display: flex; /* Use flexbox to align buttons in one line */
+  justify-content: center; /* Center buttons horizontally */
+  gap: 10px; /* Add space between buttons */
   margin-bottom: 20px;
-  padding: 0 20%;
-  border-radius: 5%;
+  padding: 0 10%; /* Adjust padding for responsiveness */
+
+  @media (max-width: 768px) {
+    flex-direction: row; /* Keep buttons in a row for tablets */
+    padding: 0 5%; /* Reduce padding for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column; /* Stack buttons vertically for small screens */
+    align-items: center; /* Center buttons on small screens */
+    gap: 15px; /* Increase spacing between stacked buttons */
+  }
 }
 
-.contract-btn {
-  position: relative;
-  float: left;
-  margin-right: -20% !important;
-  padding: 20px 30px;
+.btn-responsive {
+  padding: 15px 25px; /* Adjust padding for a better fit */
   background-color: #28a745;
   border: none;
   color: white;
   cursor: pointer;
   font-size: 16px;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for a modern look */
+
+  &:hover {
+    background-color: #218838; /* Slightly darker green on hover */
+    transform: translateY(-2px); /* Add lift animation */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+  }
+
+  &:active {
+    transform: translateY(0); /* Reset position on click */
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow on click */
+  }
 }
+
 table {
   position: relative;
   top: 3vh;
@@ -198,19 +220,6 @@ table {
   background: #d32f2f;
 }
 
-.upshop-btn {
-  float: right;
-  margin-left: -20% !important;
-  position: relative;
-  padding: 20px 30px;
-  background-color: #28a745;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
 .balance-btn,
 .open-popup-btn,
 .open-notification-btn,
