@@ -387,7 +387,7 @@ const Admin = () => {
     }
   };
 
-  const adminId = "66f2b9c3d5f63566ea9f5560";
+  const adminId = "67544116d2f85f101f7eef43";
   return (
     <div className="container">
       <h1 className="animated-title">B.M.B ترحب بك</h1>
