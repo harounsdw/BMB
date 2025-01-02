@@ -235,6 +235,9 @@ const transferPoints = async (req, res) => {
         .status(400)
         .json({ message: "رصيدك غير كافٍ لإتمام العملية!" });
     }
+    if (sender.pointstosend < pointsToSending) {
+      return res.status(400).json({ message: "رصيد الإرسال غير كافٍ!" });
+    }
 
     // Deduct and add points
     sender.points -= pointsToTransfer;
