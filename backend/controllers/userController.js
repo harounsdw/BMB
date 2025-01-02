@@ -231,7 +231,7 @@ const transferPoints = async (req, res) => {
 
     // Check if sender has enough points
     if (sender.points > pointsToTransfer) {
-      return res.status(400).json({ message: "الرجاء التثبت من البيانات!" });
+      return res.status(400).json({ message: "رجاء التثبت من البيانات!" });
     }
 
     // Deduct and add points
