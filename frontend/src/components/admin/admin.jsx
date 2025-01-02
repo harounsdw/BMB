@@ -349,7 +349,7 @@ const Admin = () => {
 
     // If the user is not an admin, set partnerId to admin's ID
     const recipientId =
-      userInfo.role === "admin" ? partnerId : "66f2b9c3d5f63566ea9f5560"; // Admin's ID
+      userInfo.role === "admin" ? partnerId : "67544116d2f85f101f7eef43"; // Admin's ID
 
     const data = {
       senderPseudo: userInfo.pseudo, // Sender's pseudo
