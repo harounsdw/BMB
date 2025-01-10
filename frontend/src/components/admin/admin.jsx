@@ -360,13 +360,6 @@ const Admin = () => {
       pointsToSending: Number(pointsToSends), // Points to deduct from sender
       password: passwords, // Sender's password for validation
     };
-    console.log({
-      senderPseudo: userInfo.pseudo,
-      recipientId,
-      pointsToTransfer: Number(pointsToSends),
-      pointsToSending: Number(pointsToSends),
-      password: passwords,
-    });
 
     try {
       const response = await fetch(
@@ -446,8 +439,10 @@ const Admin = () => {
                 placeholder="الرصيد المرسل"
                 value={pointsToSends}
                 onChange={(e) => {
-                  const value = Math.max(0, e.target.value); // Ensure non-negative values
-                  setPointsToSend(value);
+                  const value = e.target.value;
+                  if (value >= 0) {
+                    setPointsToSend(value);
+                  }
                 }}
                 min="0"
                 onWheel={(e) => e.target.blur()}
