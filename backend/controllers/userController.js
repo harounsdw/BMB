@@ -238,6 +238,13 @@ const transferPoints = async (req, res) => {
     if (sender.pointstosend < pointsToSending) {
       return res.status(400).json({ message: "رصيد الإرسال غير كافٍ!" });
     }
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      console.error("Error response from backend:", errorResponse);
+      throw new Error("Network response was not ok");
+    }
+
+    console.log("Transfer Request Data:", req.body);
 
     // Deduct and add points
     sender.points -= pointsToTransfer;

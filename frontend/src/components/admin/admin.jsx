@@ -349,7 +349,9 @@ const Admin = () => {
 
     // If the user is not an admin, set partnerId to admin's ID
     const recipientId =
-      userInfo.role === "admin" ? partnerId : "67544116d2f85f101f7eef43"; // Admin's ID
+      userInfo.role === "admin" && partnerId
+        ? partnerId
+        : "67544116d2f85f101f7eef43";
 
     const data = {
       senderPseudo: userInfo.pseudo, // Sender's pseudo
@@ -358,6 +360,13 @@ const Admin = () => {
       pointsToSending: Number(pointsToSends), // Points to deduct from sender
       password: passwords, // Sender's password for validation
     };
+    console.log({
+      senderPseudo: userInfo.pseudo,
+      recipientId,
+      pointsToTransfer: Number(pointsToSends),
+      pointsToSending: Number(pointsToSends),
+      password: passwords,
+    });
 
     try {
       const response = await fetch(
@@ -437,10 +446,8 @@ const Admin = () => {
                 placeholder="الرصيد المرسل"
                 value={pointsToSends}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (value >= 0) {
-                    setPointsToSend(value);
-                  }
+                  const value = Math.max(0, e.target.value); // Ensure non-negative values
+                  setPointsToSend(value);
                 }}
                 min="0"
                 onWheel={(e) => e.target.blur()}
