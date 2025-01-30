@@ -229,20 +229,31 @@ const transferPoints = async (req, res) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    // Check if sender has enough points
-    if (sender.points < pointsToTransfer) {
+    // Check total available balance (sum of points + pointstosend)
+    const totalAvailable = sender.points + sender.pointstosend;
+    if (totalAvailable < pointsToTransfer) {
       return res
         .status(400)
         .json({ message: "رصيدك غير كافٍ لإتمام العملية!" });
     }
-    if (sender.pointstosend < pointsToSending) {
-      return res.status(400).json({ message: "رصيد الإرسال غير كافٍ!" });
+
+    // Deduct from pointstosend first, then from points if needed
+    let remainingToDeduct = pointsToTransfer;
+
+    if (sender.pointstosend >= remainingToDeduct) {
+      sender.pointstosend -= remainingToDeduct;
+      remainingToDeduct = 0;
+    } else {
+      remainingToDeduct -= sender.pointstosend;
+      sender.pointstosend = 0;
     }
 
-    // Deduct and add points
-    sender.points -= pointsToTransfer;
+    if (remainingToDeduct > 0) {
+      sender.points -= remainingToDeduct;
+    }
+
+    // Add points to the recipient
     recipient.points += pointsToTransfer;
-    sender.pointstosend -= pointsToSending;
     recipient.pointstosend += pointsToSending;
 
     // Add notifications

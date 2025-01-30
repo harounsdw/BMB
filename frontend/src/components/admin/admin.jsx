@@ -347,11 +347,8 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // If the user is not an admin, set partnerId to admin's ID
     const recipientId =
-      userInfo.role === "admin" && partnerId
-        ? partnerId
-        : "67544116d2f85f101f7eef43";
+      userInfo.role === "admin" ? partnerId : "67544116d2f85f101f7eef43";
 
     const data = {
       senderPseudo: userInfo.pseudo, // Sender's pseudo
